@@ -13,8 +13,6 @@ body {
   line-height: 1.6;
   min-height: 100vh;
 }
-
-/* ШАПКА */
 .header {
   text-align: center;
   padding: 60px 20px 40px;
@@ -53,8 +51,6 @@ body {
   transition: transform 0.1s;
 }
 .btn:active { transform: scale(0.97); }
-
-/* КОНТЕЙНЕР */
 .container {
   max-width: 950px;
   margin: 0 auto;
@@ -67,14 +63,7 @@ h2 {
   border-bottom: 2px solid #2a4a6e;
   padding-bottom: 10px;
 }
-h3 {
-  color: #e8b84a;
-  font-size: 18px;
-  margin-bottom: 8px;
-}
 p { color: #b8c8d8; }
-
-/* ФИЧИ */
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -86,13 +75,9 @@ p { color: #b8c8d8; }
   border: 2px solid #2a4a6e;
   border-radius: 12px;
   padding: 20px;
-  transition: transform 0.15s;
 }
-.feature:hover { transform: translateY(-3px); border-color: #3a6ea5; }
 .feature h3 { color: #e8b84a; font-size: 16px; margin-bottom: 8px; }
 .feature p { color: #a8b8c8; font-size: 14px; }
-
-/* НАПАРНИКИ */
 .companions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -108,8 +93,6 @@ p { color: #b8c8d8; }
 }
 .companion .name { color: #7fc8ff; font-weight: bold; font-size: 15px; }
 .companion .desc { color: #8fa8c0; font-size: 12px; margin-top: 5px; }
-
-/* ТАБЛИЦА */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -126,9 +109,6 @@ th, td {
 }
 th { background: #1a2a4a; color: #7fc8ff; font-weight: bold; }
 td { color: #b8c8d8; }
-tr:last-child td { border-bottom: none; }
-
-/* FAQ */
 .faq {
   background: #152030;
   border: 2px solid #2a4a6e;
@@ -138,8 +118,6 @@ tr:last-child td { border-bottom: none; }
 }
 .faq .q { color: #e8b84a; font-weight: bold; margin-bottom: 8px; }
 .faq .a { color: #a8b8c8; font-size: 14px; }
-
-/* ФУТЕР */
 footer {
   text-align: center;
   padding: 40px 20px;
@@ -154,27 +132,23 @@ footer a {
   text-decoration: none;
   margin: 0 8px;
 }
-footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 
-<!-- ШАПКА -->
 <div class="header">
   <h1>🚀 КОСМО ТУРБИКС</h1>
   <p class="subtitle">Защити галактику от инопланетян!</p>
-  <a href="https://raw.githubusercontent.com/majidovmuhammad23774/cosmo-turbix/main/CosmoTurbix.apk"
+  <a href="https://raw.githubusercontent.com/majidovmuhammad23774/Cosmo-turbiks/main/CosmoTurbix.apk"
      class="btn">📥 СКАЧАТЬ APK</a>
   <p class="version">Версия 1.0 • Android</p>
 </div>
 
 <div class="container">
 
-  <!-- О ИГРЕ -->
   <h2>О игре</h2>
   <p>Космо Турбикс — это космическая аркада, где ты управляешь танком и защищаешь галактику от нашествия инопланетян. Уничтожай врагов, собирай монеты, покупай напарников и стань лучшим защитником космоса!</p>
 
-  <!-- ВОЗМОЖНОСТИ -->
   <h2>Возможности</h2>
   <div class="features">
     <div class="feature">
@@ -203,13 +177,12 @@ footer a:hover { text-decoration: underline; }
     </div>
   </div>
 
-  <!-- НАПАРНИКИ -->
   <h2>Напарники</h2>
   <p>Твои боевые товарищи. Каждый ездит сам и стреляет по врагам.</p>
   <div class="companions">
     <div class="companion">
       <div class="name">⚡ Заряд</div>
-      <div class="desc">Первый напарник, дешёвый</div>
+      <div class="desc">Первый напарник</div>
     </div>
     <div class="companion">
       <div class="name">☄️ Комета</div>
@@ -217,19 +190,18 @@ footer a:hover { text-decoration: underline; }
     </div>
     <div class="companion">
       <div class="name">🛡️ Титан</div>
-      <div class="desc">Крепкий, больше урона</div>
+      <div class="desc">Крепкий</div>
     </div>
     <div class="companion">
       <div class="name">👻 Фантом</div>
-      <div class="desc">Мощный стрелок</div>
+      <div class="desc">Мощный</div>
     </div>
     <div class="companion">
       <div class="name">⛈️ Гроза</div>
-      <div class="desc">Всё в одном — лучший</div>
+      <div class="desc">Лучший</div>
     </div>
   </div>
 
-  <!-- ВАЛЮТЫ -->
   <h2>Валюты</h2>
   <table>
     <tr>
@@ -239,21 +211,20 @@ footer a:hover { text-decoration: underline; }
     </tr>
     <tr>
       <td>💰 Монеты</td>
-      <td>За убийство врагов (20 за волну)</td>
+      <td>За убийство врагов</td>
       <td>Покупка напарников</td>
     </tr>
     <tr>
       <td>🪙 Флиппингсы</td>
-      <td>За волны (1 за волну)</td>
+      <td>За волны</td>
       <td>Редкие покупки</td>
     </tr>
   </table>
 
-  <!-- КАК ИГРАТЬ -->
   <h2>Как играть</h2>
   <div class="faq">
     <div class="q">1. Скачай APK</div>
-    <div class="a">Нажми кнопку «Скачать APK» вверху и установи игру на телефон</div>
+    <div class="a">Нажми «Скачать APK» вверху и установи игру</div>
   </div>
   <div class="faq">
     <div class="q">2. Введи никнейм</div>
@@ -261,18 +232,17 @@ footer a:hover { text-decoration: underline; }
   </div>
   <div class="faq">
     <div class="q">3. Управляй танком</div>
-    <div class="a">Кнопки ◀ ▶ внизу экрана. Стрельба автоматическая</div>
+    <div class="a">Кнопки ◀ ▶ внизу. Стрельба автоматическая</div>
   </div>
   <div class="faq">
     <div class="q">4. Покупай напарников</div>
     <div class="a">В меню «Напарники» покупай бойцов за монеты</div>
   </div>
 
-  <!-- ЧАСТЫЕ ВОПРОСЫ -->
   <h2>Частые вопросы</h2>
   <div class="faq">
     <div class="q">❓ Игра бесплатная?</div>
-    <div class="a">Да, полностью бесплатная. Без рекламы и без встроенных покупок</div>
+    <div class="a">Да, без рекламы и без встроенных покупок</div>
   </div>
   <div class="faq">
     <div class="q">❓ Нужен интернет?</div>
@@ -282,22 +252,17 @@ footer a:hover { text-decoration: underline; }
     <div class="q">❓ На каких устройствах работает?</div>
     <div class="a">На любых Android-телефонах и планшетах</div>
   </div>
-  <div class="faq">
-    <div class="q">❓ Как сохраняется прогресс?</div>
-    <div class="a">Автоматически на телефоне. Можно играть с того же устройства и продолжать</div>
-  </div>
 
 </div>
 
-<!-- ФУТЕР -->
 <footer>
   <p>👨‍💻 Разработчик: Мухаммад Маджидов, 9 лет</p>
   <p style="margin-top:15px;">
     <a href="privacy.html">Политика конфиденциальности</a> |
-    <a href="https://github.com/majidovmuhammad23774/cosmo-turbix">GitHub</a> |
+    <a href="https://github.com/majidovmuhammad23774/Cosmo-turbiks">GitHub</a> |
     <a href="https://majidovmuhammad23774.github.io/Frontier-site/">Гром Брони</a>
   </p>
-  <p style="margin-top:20px;">© 2026 Космо Турбикс. Все права защищены.</p>
+  <p style="margin-top:20px;">© 2026 Космо Турбикс</p>
 </footer>
 
 </body>
