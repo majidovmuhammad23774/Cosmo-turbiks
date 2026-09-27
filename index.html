@@ -2,546 +2,187 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Космо Турбикс</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Космо Турбикс — Защити галактику!</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-tap-highlight-color:transparent}
-body{background:#0a0e1a;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Segoe UI',Arial,sans-serif;overflow:hidden;touch-action:none}
-#wrap{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0e1a}
-canvas{display:block;max-width:100%;max-height:100%}
-.screen{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,#0f1626 0%,#0a0e1a 100%);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:100;color:#d0dae8;text-align:center;padding:15px;overflow-y:auto}
-.screen.active{display:flex}
-h1{color:#7fc8ff;font-size:26px;margin-bottom:5px;font-weight:900}
-h2{color:#e8b84a;font-size:13px;margin-bottom:14px}
-h3{color:#7fc8ff;font-size:18px;margin-bottom:10px}
-.menu-btn{padding:12px 34px;font-size:15px;font-weight:bold;color:#e8eef8;background:linear-gradient(180deg,#3a6ea5,#244a75);border:none;border-radius:10px;cursor:pointer;margin:4px 0;min-width:220px;font-family:inherit}
-.menu-btn:active{transform:scale(0.96)}
-.menu-btn.green{background:linear-gradient(180deg,#4a9e5c,#2f6b3c)}
-.menu-btn.gold{background:linear-gradient(180deg,#c8a042,#8a6b1e)}
-.menu-btn.gray{background:linear-gradient(180deg,#4a5560,#2f3840)}
-#firstNickInput,#nickInput{padding:13px 18px;font-size:17px;border:2px solid #3a6ea5;border-radius:10px;background:#152030;color:#e8eef8;text-align:center;margin:12px 0;width:250px;outline:none;font-family:inherit}
-.stat-box{background:#152030;padding:7px 14px;border-radius:8px;border:1px solid #2a4a6e;margin:4px;font-weight:bold;display:inline-block;font-size:14px}
-.stat-box b{color:#e8b84a}
-.back-btn{position:absolute;top:12px;left:12px;padding:9px 18px;background:#244a75;border:2px solid #3a6ea5;border-radius:8px;color:#e8eef8;font-weight:bold;font-size:13px;cursor:pointer;font-family:inherit}
-.shop-item{background:#152030;border:2px solid #2a4a6e;border-radius:12px;padding:11px;margin:5px auto;width:92%;max-width:400px;display:flex;justify-content:space-between;align-items:center;text-align:left}
-.shop-item.current{border-color:#4a9e5c;background:#1a2e22}
-.shop-info{flex:1}
-.shop-info b{color:#e8b84a;font-size:14px;display:block}
-.shop-info small{color:#8fa8c0;font-size:11px}
-.small-btn{padding:8px 14px;font-size:12px;font-weight:bold;color:#e8eef8;background:#3a6ea5;border:none;border-radius:8px;cursor:pointer;font-family:inherit;min-width:85px}
-.small-btn.gold{background:#c8a042;color:#1a1a0a}
-.small-btn.green{background:#4a9e5c}
-#hud{position:absolute;top:10px;left:10px;right:10px;display:none;justify-content:space-between;color:#d0dae8;font-size:11px;font-weight:800;z-index:10;pointer-events:none}
-.hud-block{background:rgba(15,22,38,0.85);padding:6px 10px;border-radius:8px;border:1px solid #2a4a6e}
-#controls{position:absolute;bottom:15px;left:0;width:100%;display:none;justify-content:space-between;padding:0 22px;z-index:50;pointer-events:none}
-.btn{width:65px;height:65px;font-size:22px;color:#e8eef8;background:rgba(42,74,110,0.6);border:2px solid #3a6ea5;border-radius:16px;pointer-events:auto;font-weight:bold}
-.btn:active{background:rgba(58,110,165,0.9);transform:scale(0.92)}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: linear-gradient(180deg, #0f1626 0%, #0a0e1a 100%);
+  color: #d0dae8;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.header {
+  text-align: center;
+  padding: 50px 20px 30px;
+  background: radial-gradient(circle at 50% 0%, #1a2a4a 0%, transparent 70%);
+}
+.header h1 {
+  color: #7fc8ff;
+  font-size: 42px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+.header p {
+  color: #e8b84a;
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-top: 20px;
+}
+.btn {
+  display: inline-block;
+  padding: 16px 45px;
+  font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: transform 0.1s;
+  min-width: 280px;
+  text-align: center;
+}
+.btn:active { transform: scale(0.97); }
+.btn-download {
+  background: linear-gradient(180deg, #4a9e5c, #2f6b3c);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(74,158,92,0.5);
+}
+.btn-play {
+  background: linear-gradient(180deg, #3a6ea5, #244a75);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(58,110,165,0.5);
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+h2 {
+  color: #7fc8ff;
+  font-size: 24px;
+  margin: 30px 0 15px;
+  border-bottom: 2px solid #2a4a6e;
+  padding-bottom: 8px;
+}
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+.feature {
+  background: #152030;
+  border: 2px solid #2a4a6e;
+  border-radius: 12px;
+  padding: 18px;
+}
+.feature h3 {
+  color: #e8b84a;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.feature p {
+  color: #a8b8c8;
+  font-size: 14px;
+}
+.screenshots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+.screenshots img {
+  width: 100%;
+  border-radius: 12px;
+  border: 2px solid #2a4a6e;
+  background: #152030;
+}
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: #8fa8c0;
+  font-size: 14px;
+  border-top: 1px solid #2a4a6e;
+  margin-top: 40px;
+}
+footer a {
+  color: #7fc8ff;
+  text-decoration: none;
+  margin: 0 8px;
+}
 </style>
 </head>
 <body>
-<div id="wrap">
-<canvas id="game"></canvas>
-<div id="hud">
-<div class="hud-block"><span id="hudName">Игрок</span></div>
-<div class="hud-block">Очки: <span id="score">0</span> | Жизни: <span id="lives">3</span></div>
-<div class="hud-block">Волна <span id="wave">1</span> | Боты <span id="companionCount">0</span></div>
+
+<div class="header">
+  <h1>🚀 КОСМО ТУРБИКС</h1>
+  <p>Защити галактику от инопланетян!</p>
+  <div class="buttons">
+    <a href="https://raw.githubusercontent.com/majidovmuhammad23774/cosmo-turbix/main/CosmoTurbix.apk"
+       class="btn btn-download">📥 СКАЧАТЬ APK</a>
+    <a href="game.html" class="btn btn-play">▶ ИГРАТЬ ОНЛАЙН</a>
+  </div>
 </div>
-<div id="controls">
-<div style="display:flex;gap:12px">
-<button class="btn" id="leftBtn">◀</button>
-<button class="btn" id="rightBtn">▶</button>
+
+<div class="container">
+  <h2>О игре</h2>
+  <p>Космо Турбикс — это космическая аркада, где ты управляешь танком и защищаешь галактику от нашествия инопланетян. Собери команду напарников, прокачай танк и стань лучшим защитником!</p>
+
+  <h2>Возможности</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>👽 20+ инопланетян</h3>
+      <p>Разные враги с уникальным поведением и стрельбой</p>
+    </div>
+    <div class="feature">
+      <h3>🚜 5+ напарников</h3>
+      <p>Покупай бойцов, которые ездят сами и стреляют по врагам</p>
+    </div>
+    <div class="feature">
+      <h3>💰 Монеты и флиппингсы</h3>
+      <p>Зарабатывай валюту и обменивай (1000 монет = 240 флиппингсов)</p>
+    </div>
+    <div class="feature">
+      <h3>🛒 Магазин</h3>
+      <p>Покупай улучшения и новых напарников</p>
+    </div>
+    <div class="feature">
+      <h3>📱 Работает офлайн</h3>
+      <p>Играй без интернета в любое время</p>
+    </div>
+    <div class="feature">
+      <h3>💾 Сохранение</h3>
+      <p>Прогресс сохраняется на телефоне</p>
+    </div>
+  </div>
+
+  <h2>Скриншоты</h2>
+  <div class="screenshots">
+    <img src="screenshots/screen1.png" alt="Главное меню" onerror="this.style.display='none'">
+    <img src="screenshots/screen2.png" alt="Бой" onerror="this.style.display='none'">
+    <img src="screenshots/screen3.png" alt="Магазин" onerror="this.style.display='none'">
+  </div>
+  <p style="color:#8fa8c0; font-size:14px; text-align:center;">
+    (Скриншоты появятся, когда ты загрузишь их в папку <b>screenshots/</b>)
+  </p>
 </div>
-</div>
-<div class="screen active" id="firstScreen">
-<h1>КОСМО ТУРБИКС</h1>
-<h2>ДОБРО ПОЖАЛОВАТЬ!</h2>
-<p style="color:#8fa8c0;margin-bottom:8px">Как тебя зовут?</p>
-<input type="text" id="firstNickInput" maxlength="15" placeholder="Введи никнейм">
-<button class="menu-btn green" id="firstStartBtn">НАЧАТЬ</button>
-</div>
-<div class="screen" id="menuScreen">
-<h1>КОСМО ТУРБИКС</h1>
-<h2>ЗАЩИТИ ГАЛАКТИКУ</h2>
-<div style="margin-bottom:10px">
-<div class="stat-box">Монеты: <b id="menuCoins">0</b></div>
-<div class="stat-box">Флиппингсы: <b id="menuFlips">0</b></div>
-<div class="stat-box">Ур. <b id="menuLevel">1</b></div>
-</div>
-<button class="menu-btn green" id="playBtn">В БОЙ</button>
-<button class="menu-btn gold" id="companionBtn">НАПАРНИКИ</button>
-<button class="menu-btn" id="shopBtn">МАГАЗИН</button>
-<button class="menu-btn" id="exchangeBtn">ОБМЕН ВАЛЮТЫ</button>
-<button class="menu-btn gray" id="nickBtn">СМЕНИТЬ ИМЯ</button>
-<button class="menu-btn gray" id="profileBtn">ПРОФИЛЬ</button>
-</div>
-<div class="screen" id="nickScreen">
-<h1>НИКНЕЙМ</h1>
-<input type="text" id="nickInput" maxlength="15" placeholder="Игрок">
-<button class="menu-btn green" id="saveNickBtn">СОХРАНИТЬ</button>
-<button class="menu-btn gray" id="nickBackBtn">НАЗАД</button>
-</div>
-<div class="screen" id="companionScreen">
-<button class="back-btn" id="companionBackBtn">НАЗАД</button>
-<h3>НАПАРНИКИ</h3>
-<p style="color:#8fa8c0;font-size:12px;margin-bottom:8px">Ездят сами и стреляют</p>
-<div id="companionList" style="width:100%"></div>
-</div>
-<div class="screen" id="shopScreen">
-<button class="back-btn" id="shopBackBtn">НАЗАД</button>
-<h3>МАГАЗИН</h3>
-<div id="shopList" style="width:100%"></div>
-</div>
-<div class="screen" id="exchangeScreen">
-<button class="back-btn" id="exchangeBackBtn">НАЗАД</button>
-<h3>ОБМЕН ВАЛЮТЫ</h3>
-<p style="color:#8fa8c0;margin:10px">1 000 монет = 240 флиппингсов</p>
-<div style="margin:12px 0">
-<div class="stat-box">Монеты: <b id="exCoins">0</b></div>
-<div class="stat-box">Флиппингсы: <b id="exFlips">0</b></div>
-</div>
-<button class="menu-btn gold" id="doExchangeBtn">ОБМЕНИТЬ 1000</button>
-</div>
-<div class="screen" id="profileScreen">
-<button class="back-btn" id="profileBackBtn">НАЗАД</button>
-<h1>ПРОФИЛЬ</h1>
-<div style="font-size:20px;margin:10px 0">Игрок: <b id="profName" style="color:#e8b84a">Игрок</b></div>
-<div><div class="stat-box">Монеты: <b id="profCoins">0</b></div></div>
-<div><div class="stat-box">Флиппингсы: <b id="profFlips">0</b></div></div>
-<div><div class="stat-box">Ур. <b id="profLevel">1</b></div></div>
-<div><div class="stat-box">Убито: <b id="profKills">0</b></div></div>
-</div>
-<div class="screen" id="msgScreen">
-<h1 id="msgTitle">ОК</h1>
-<p id="msgText" style="font-size:15px;margin:18px;color:#8fa8c0"></p>
-<button class="menu-btn green" id="msgOkBtn">OK</button>
-</div>
-</div><script>
-let save={nick:'',coins:0,flips:0,level:1,kills:0,ownedFighters:[],ownedCompanions:[],activeCompanions:[],lastDaily:0};
-try{const d=localStorage.getItem('cosmoSave');if(d)save=Object.assign(save,JSON.parse(d));}catch(e){}
-function writeSave(){try{localStorage.setItem('cosmoSave',JSON.stringify(save));}catch(e){}}
 
-const FIGHTERS=[
-{name:'Стрелок',price:5,desc:'+1 выстрел'},
-{name:'Щитоносец',price:10,desc:'+1 жизнь'},
-{name:'Ускоритель',price:8,desc:'+20% скорость'},
-{name:'Магнит',price:15,desc:'Монеты притягиваются'},
-{name:'Разрушитель',price:25,desc:'+50% урона'}
-];
+<footer>
+  <p>👨‍💻 Разработчик: Мухаммад Маджидов, 9 лет</p>
+  <p style="margin-top:10px;">
+    <a href="game.html">Играть</a> |
+    <a href="privacy.html">Политика конфиденциальности</a> |
+    <a href="https://github.com/majidovmuhammad23774/cosmo-turbix">GitHub</a>
+  </p>
+  <p style="margin-top:15px;">© 2026 Космо Турбикс</p>
+</footer>
 
-const COMPANIONS=[
-{name:'Заряд',price:1,currency:'coins',desc:'Ездит сам, стреляет',color:'#5a9ad5',fireRate:50,dmg:1},
-{name:'Комета',price:100,currency:'coins',desc:'Быстрее стреляет',color:'#7fd8a0',fireRate:35,dmg:1},
-{name:'Титан',price:1000,currency:'coins',desc:'Крепкий танк',color:'#e8c84a',fireRate:30,dmg:2},
-{name:'Фантом',price:10000,currency:'coins',desc:'Мощный стрелок',color:'#c87fe8',fireRate:25,dmg:2},
-{name:'Гроза',price:1000000,currency:'flips',desc:'Всё в одном',color:'#e87f7f',fireRate:15,dmg:3}
-];
-
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));if(id)document.getElementById(id).classList.add('active');}
-function updateMenu(){document.getElementById('menuCoins').textContent=save.coins;document.getElementById('menuFlips').textContent=save.flips;document.getElementById('menuLevel').textContent=save.level;}
-function msg(t,x){document.getElementById('msgTitle').textContent=t;document.getElementById('msgText').textContent=x;show('msgScreen');}
-
-document.getElementById('firstStartBtn').onclick=()=>{const v=document.getElementById('firstNickInput').value.trim();if(!v){alert('Введи никнейм!');return;}save.nick=v;writeSave();updateMenu();show('menuScreen');};
-document.getElementById('playBtn').onclick=()=>startGame();
-document.getElementById('shopBtn').onclick=()=>{renderShop();show('shopScreen');};
-document.getElementById('companionBtn').onclick=()=>{renderCompanions();show('companionScreen');};
-document.getElementById('nickBtn').onclick=()=>{document.getElementById('nickInput').value=save.nick;show('nickScreen');};
-document.getElementById('exchangeBtn').onclick=()=>{document.getElementById('exCoins').textContent=save.coins;document.getElementById('exFlips').textContent=save.flips;show('exchangeScreen');};
-document.getElementById('profileBtn').onclick=()=>{document.getElementById('profName').textContent=save.nick;document.getElementById('profCoins').textContent=save.coins;document.getElementById('profFlips').textContent=save.flips;document.getElementById('profLevel').textContent=save.level;document.getElementById('profKills').textContent=save.kills;show('profileScreen');};
-document.getElementById('saveNickBtn').onclick=()=>{const v=document.getElementById('nickInput').value.trim();if(v){save.nick=v;writeSave();}updateMenu();show('menuScreen');};
-document.getElementById('nickBackBtn').onclick=()=>show('menuScreen');
-document.getElementById('shopBackBtn').onclick=()=>show('menuScreen');
-document.getElementById('companionBackBtn').onclick=()=>show('menuScreen');
-document.getElementById('exchangeBackBtn').onclick=()=>show('menuScreen');
-document.getElementById('profileBackBtn').onclick=()=>show('menuScreen');
-document.getElementById('msgOkBtn').onclick=()=>show('menuScreen');
-
-document.getElementById('doExchangeBtn').onclick=()=>{
-if(save.coins>=1000){save.coins-=1000;save.flips+=240;writeSave();updateMenu();document.getElementById('exCoins').textContent=save.coins;document.getElementById('exFlips').textContent=save.flips;msg('ГОТОВО','-1000 монет = +240 флиппингсов');}
-else msg('НЕ ХВАТАЕТ','Нужно 1000 монет.');
-};
-
-function renderShop(){
-const list=document.getElementById('shopList');list.innerHTML='';
-FIGHTERS.forEach(f=>{
-const owned=save.ownedFighters.includes(f.name);
-const div=document.createElement('div');
-div.className='shop-item'+(owned?' current':'');
-div.innerHTML='<div class="shop-info"><b>'+(owned?'✓ ':'')+f.name+'</b><small>'+f.desc+'</small></div><button class="small-btn '+(owned?'green':'gold')+'">'+(owned?'КУПЛЕН':f.price+' Ф')+'</button>';
-const btn=div.querySelector('button');
-btn.onclick=()=>{
-if(owned)return;
-if(save.flips>=f.price){save.flips-=f.price;save.ownedFighters.push(f.name);writeSave();updateMenu();renderShop();msg('КУПЛЕН',f.name);}
-else msg('НЕ ХВАТАЕТ','Нужно '+f.price+' флиппингсов');
-};
-list.appendChild(div);
-});
-}
-
-function renderCompanions(){
-const list=document.getElementById('companionList');list.innerHTML='';
-COMPANIONS.forEach(c=>{
-const owned=save.ownedCompanions.includes(c.name);
-const active=save.activeCompanions.includes(c.name);
-const cur=c.currency==='coins'?'монет':'Ф';
-const div=document.createElement('div');
-div.className='shop-item'+(active?' current':'');
-div.innerHTML='<div class="shop-info"><b>'+(active?'✓ ':(owned?'o ':''))+c.name+'</b><small>'+c.desc+'</small></div><button class="small-btn '+(active?'green':(owned?'':'gold'))+'">'+(active?'АКТИВЕН':(owned?'ВЫБРАТЬ':c.price.toLocaleString()+' '+cur))+'</button>';
-const btn=div.querySelector('button');
-btn.onclick=()=>{
-if(active){save.activeCompanions=save.activeCompanions.filter(n=>n!==c.name);writeSave();renderCompanions();return;}
-if(owned){
-if(save.activeCompanions.length>=5){msg('МАКСИМУМ','Можно 5 напарников');return;}
-save.activeCompanions.push(c.name);writeSave();renderCompanions();return;
-}
-const have=c.currency==='coins'?save.coins:save.flips;
-if(have>=c.price){
-if(c.currency==='coins')save.coins-=c.price;else save.flips-=c.price;
-save.ownedCompanions.push(c.name);save.activeCompanions.push(c.name);
-writeSave();updateMenu();renderCompanions();msg('КУПЛЕН',c.name);
-}else msg('НЕ ХВАТАЕТ','Нужно '+c.price.toLocaleString()+' '+cur);
-};
-list.appendChild(div);
-});
-}
-</script><script>
-const canvas=document.getElementById('game');
-const ctx=canvas.getContext('2d');
-
-function resize(){
-let w=window.innerWidth,h=window.innerHeight;
-if(w/h>9/16){canvas.height=h;canvas.width=h*(9/16);}
-else{canvas.width=w;canvas.height=w/(9/16);}
-}
-resize();
-window.addEventListener('resize',resize);
-
-let running=false,score=0,lives=3,wave=1,kills=0,screenShake=0;
-let bullets=[],enemyBullets=[],enemies=[],particles=[],stars=[],companions=[];
-
-for(let i=0;i<100;i++){
-stars.push({x:Math.random()*1080,y:Math.random()*1920,size:Math.random()*2+0.8,speed:Math.random()*1.5+0.3,color:Math.random()<0.2?'#5a8fc0':'#a8b8c8'});
-}
-
-const player={x:540,y:1700,w:50,h:50};
-let leftPressed=false,rightPressed=false,shootCooldown=0;
-
-document.getElementById('leftBtn').addEventListener('touchstart',e=>{e.preventDefault();leftPressed=true;});
-document.getElementById('leftBtn').addEventListener('touchend',e=>{e.preventDefault();leftPressed=false;});
-document.getElementById('rightBtn').addEventListener('touchstart',e=>{e.preventDefault();rightPressed=true;});
-document.getElementById('rightBtn').addEventListener('touchend',e=>{e.preventDefault();rightPressed=false;});
-
-let audioCtx=null;
-function playSound(f,t,d,v){
-try{
-if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-if(audioCtx.state==='suspended')audioCtx.resume();
-const osc=audioCtx.createOscillator(),g=audioCtx.createGain();
-osc.connect(g);g.connect(audioCtx.destination);
-osc.type=t;osc.frequency.setValueAtTime(f,audioCtx.currentTime);
-g.gain.setValueAtTime(v,audioCtx.currentTime);
-g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+d);
-osc.start();osc.stop(audioCtx.currentTime+d);
-}catch(e){}
-}
-
-function createCompanions(){
-companions=[];
-save.activeCompanions.forEach((name,i)=>{
-const c=COMPANIONS.find(x=>x.name===name);
-if(!c)return;
-companions.push({type:c,x:150+i*180,y:1550+(i%2)*100,dir:Math.random()<0.5?-1:1,speed:1.5+Math.random()*0.5,cooldown:0,w:50,h:50});
-});
-document.getElementById('companionCount').textContent=companions.length;
-}
-
-function spawnEnemy(){
-const size=Math.random()*25+25;
-const hp=Math.ceil(wave/2)+1;
-enemies.push({x:Math.random()*(1080-size*4)+size*2,y:-size,size,hp,maxHp:hp,speed:Math.random()*1.3+0.8+wave*0.1,rot:0,rotSpeed:(Math.random()-0.5)*0.05,shootCd:Math.random()*120+60});
-}
-
-function update(){
-if(!running)return;
-if(screenShake>0)screenShake*=0.9;
-
-if(leftPressed&&player.x>player.w)player.x-=8;
-if(rightPressed&&player.x<1080-player.w)player.x+=8;
-
-shootCooldown--;
-if(shootCooldown<=0){
-bullets.push({x:player.x,y:player.y-30,w:5,h:16,vx:0,vy:-12,dmg:1});
-shootCooldown=12;
-playSound(600,'triangle',0.05,0.03);
-}
-
-companions.forEach(c=>{
-c.x+=c.dir*c.speed;
-if(c.x<50||c.x>1030)c.dir*=-1;
-c.cooldown--;
-if(c.cooldown<=0){
-let closest=null,minDist=99999;
-enemies.forEach(e=>{const d=Math.hypot(e.x-c.x,e.y-c.y);if(d<minDist){minDist=d;closest=e;}});
-if(closest){
-c.cooldown=c.type.fireRate;
-const dx=closest.x-c.x,dy=closest.y-c.y;
-const len=Math.hypot(dx,dy)||1;
-bullets.push({x:c.x,y:c.y-25,w:4,h:12,vx:dx/len*10,vy:dy/len*10,dmg:c.type.dmg,color:c.type.color});
-}
-}
-});
-
-for(let i=bullets.length-1;i>=0;i--){
-bullets[i].x+=bullets[i].vx;
-bullets[i].y+=bullets[i].vy;
-if(bullets[i].y<-50||bullets[i].x<-50||bullets[i].x>1130)bullets.splice(i,1);
-}
-
-for(let i=enemyBullets.length-1;i>=0;i--){
-const b=enemyBullets[i];
-b.x+=b.vx;b.y+=b.vy;
-if(b.y>1970||b.y<-50||b.x<-50||b.x>1130){enemyBullets.splice(i,1);continue;}
-if(Math.hypot(b.x-player.x,b.y-player.y)<30){
-enemyBullets.splice(i,1);
-lives--;document.getElementById('lives').textContent=lives;
-screenShake=15;playSound(90,'sawtooth',0.5,0.25);
-if(lives<=0){gameOver();return;}
-}
-}
-
-for(let i=enemies.length-1;i>=0;i--){
-const e=enemies[i];
-e.y+=e.speed;e.rot+=e.rotSpeed;
-
-e.shootCd--;
-if(e.shootCd<=0&&e.y>0&&e.y<1500){
-e.shootCd=90+Math.random()*60;
-const dx=player.x-e.x,dy=player.y-e.y;
-const len=Math.hypot(dx,dy)||1;
-enemyBullets.push({x:e.x,y:e.y,vx:dx/len*5,vy:dy/len*5,w:6,h:6});
-}
-
-if(e.y+e.size>player.y-player.h&&e.y-e.size<player.y+player.h&&e.x+e.size>player.x-player.w&&e.x-e.size<player.x+player.w){
-enemies.splice(i,1);
-lives--;document.getElementById('lives').textContent=lives;
-screenShake=20;playSound(100,'sawtooth',0.5,0.3);
-if(lives<=0){gameOver();return;}
-continue;
-}
-if(e.y>1970){enemies.splice(i,1);continue;}
-
-for(let j=bullets.length-1;j>=0;j--){
-const b=bullets[j];
-if(Math.hypot(b.x-e.x,b.y-e.y)<e.size+8){
-e.hp-=(b.dmg||1);
-bullets.splice(j,1);
-for(let k=0;k<3;k++){
-particles.push({x:b.x,y:b.y,vx:(Math.random()-0.5)*5,vy:(Math.random()-0.5)*5,size:Math.random()*2+1,life:1,color:'#e8b84a'});
-}
-if(e.hp<=0){
-for(let k=0;k<10;k++){
-particles.push({x:e.x,y:e.y,vx:(Math.random()-0.5)*8,vy:(Math.random()-0.5)*8,size:Math.random()*4+1,life:1,color:'#e87f4a'});
-}
-enemies.splice(i,1);
-score+=10;kills++;
-document.getElementById('score').textContent=score;
-playSound(180,'sawtooth',0.25,0.12);
-if(kills%10===0){
-wave++;document.getElementById('wave').textContent=wave;
-save.coins+=20;save.flips+=1;save.kills=kills;writeSave();
-}
-}
-break;
-}
-}
-}
-
-for(let i=particles.length-1;i>=0;i--){
-const p=particles[i];
-p.x+=p.vx;p.y+=p.vy;p.life-=0.03;
-if(p.life<=0)particles.splice(i,1);
-}
-if(Math.random()<0.018+wave*0.003)spawnEnemy();
-}
-
-function draw(){
-const sx=screenShake>0?(Math.random()-0.5)*screenShake:0;
-const sy=screenShake>0?(Math.random()-0.5)*screenShake:0;
-ctx.setTransform(canvas.width/1080,0,0,canvas.height/1920,sx,sy);
-
-const bg=ctx.createRadialGradient(540,960,100,540,960,1200);
-bg.addColorStop(0,'#141c30');
-bg.addColorStop(0.5,'#0e1524');
-bg.addColorStop(1,'#0a0e1a');
-ctx.fillStyle=bg;
-ctx.fillRect(-50,-50,1180,2020);
-
-for(const s of stars){
-s.y+=s.speed;
-if(s.y>1970){s.y=-10;s.x=Math.random()*1080;}
-ctx.globalAlpha=0.5;
-ctx.fillStyle=s.color;
-ctx.beginPath();
-ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
-ctx.fill();
-}
-ctx.globalAlpha=1;
-
-for(const p of particles){
-ctx.globalAlpha=p.life;
-ctx.fillStyle=p.color;
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-ctx.fill();
-}
-ctx.globalAlpha=1;
-
-for(const b of bullets){
-ctx.fillStyle=b.color||'#7fc8ff';
-ctx.fillRect(b.x-b.w/2,b.y-b.h/2,b.w,b.h);
-}
-for(const b of enemyBullets){
-ctx.fillStyle='#e87f7f';
-ctx.beginPath();
-ctx.arc(b.x,b.y,b.w,0,Math.PI*2);
-ctx.fill();
-}
-
-for(const e of enemies){
-ctx.save();
-ctx.translate(e.x,e.y);
-ctx.rotate(e.rot);
-ctx.fillStyle='#6ea05a';
-ctx.beginPath();
-ctx.arc(0,0,e.size,0,Math.PI*2);
-ctx.fill();
-ctx.fillStyle='#2a3a24';
-ctx.beginPath();
-ctx.arc(-e.size*0.35,-e.size*0.15,e.size*0.22,0,Math.PI*2);
-ctx.fill();
-ctx.beginPath();
-ctx.arc(e.size*0.35,-e.size*0.15,e.size*0.22,0,Math.PI*2);
-ctx.fill();
-ctx.fillStyle='#e8a04a';
-ctx.beginPath();
-ctx.arc(-e.size*0.35,-e.size*0.15,e.size*0.08,0,Math.PI*2);
-ctx.fill();
-ctx.beginPath();
-ctx.arc(e.size*0.35,-e.size*0.15,e.size*0.08,0,Math.PI*2);
-ctx.fill();
-ctx.restore();
-
-if(e.hp<e.maxHp){
-const w=e.size*2;
-ctx.fillStyle='rgba(0,0,0,0.5)';
-ctx.fillRect(e.x-w/2,e.y-e.size-12,w,4);
-ctx.fillStyle='#7fc87f';
-ctx.fillRect(e.x-w/2,e.y-e.size-12,w*(e.hp/e.maxHp),4);
-}
-}
-
-for(const c of companions){
-ctx.save();
-ctx.translate(c.x,c.y);
-ctx.fillStyle='#1a2430';
-ctx.fillRect(-c.w/2-5,-c.h/2+8,7,c.h-16);
-ctx.fillRect(c.w/2-2,-c.h/2+8,7,c.h-16);
-const cg=ctx.createLinearGradient(0,-c.h/2,0,c.h/2);
-cg.addColorStop(0,c.type.color);
-cg.addColorStop(1,'#1a2a3a');
-ctx.fillStyle=cg;
-ctx.beginPath();
-ctx.moveTo(-c.w/2,c.h/2);
-ctx.lineTo(c.w/2,c.h/2);
-ctx.lineTo(c.w/2-8,-c.h/2);
-ctx.lineTo(-c.w/2+8,-c.h/2);
-ctx.closePath();
-ctx.fill();
-ctx.fillStyle='#1a3a5a';
-ctx.beginPath();
-ctx.arc(0,0,12,0,Math.PI*2);
-ctx.fill();
-ctx.fillStyle='#a8d8ff';
-ctx.beginPath();
-ctx.arc(0,-5,4,0,Math.PI*2);
-ctx.fill();
-ctx.fillStyle=c.type.color;
-ctx.fillRect(-2,-c.h/2-12,4,14);
-ctx.restore();
-}
-
-ctx.save();
-ctx.translate(player.x,player.y);
-ctx.fillStyle='#1a2430';
-ctx.fillRect(-player.w/2-5,-player.h/2+8,7,player.h-16);
-ctx.fillRect(player.w/2-2,-player.h/2+8,7,player.h-16);
-const bg2=ctx.createLinearGradient(0,-player.h/2,0,player.h/2);
-bg2.addColorStop(0,'#5a9ad5');
-bg2.addColorStop(1,'#2a4a75');
-ctx.fillStyle=bg2;
-ctx.beginPath();
-ctx.moveTo(-player.w/2,player.h/2);
-ctx.lineTo(player.w/2,player.h/2);
-ctx.lineTo(player.w/2-8,-player.h/2);
-ctx.lineTo(-player.w/2+8,-player.h/2);
-ctx.closePath();
-ctx.fill();
-ctx.fillStyle='#1a3a5a';
-ctx.beginPath();
-ctx.arc(0,0,13,0,Math.PI*2);
-ctx.fill();
-ctx.fillStyle='#7fc8ff';
-ctx.beginPath();
-ctx.arc(0,-5,5,0,Math.PI*2);
-ctx.fill();
-ctx.fillStyle='#9ac8e8';
-ctx.fillRect(-3,-player.h/2-14,6,16);
-ctx.restore();
-
-ctx.setTransform(1,0,0,1,0,0);
-}
-
-function gameOver(){
-running=false;
-document.getElementById('hud').style.display='none';
-document.getElementById('controls').style.display='none';
-msg('ИГРА ОКОНЧЕНА','Очки: '+score+' | Волна: '+wave+' | Убито: '+kills);
-}
-
-function startGame(){
-running=true;
-score=0;lives=3;wave=1;kills=0;
-screenShake=0;shootCooldown=0;
-bullets=[];enemyBullets=[];enemies=[];particles=[];
-player.x=540;player.y=1700;
-
-document.getElementById('score').textContent=0;
-document.getElementById('lives').textContent=3;
-document.getElementById('wave').textContent=1;
-document.getElementById('hudName').textContent=save.nick;
-
-document.getElementById('hud').style.display='flex';
-document.getElementById('controls').style.display='flex';
-
-createCompanions();
-document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-
-if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-if(audioCtx.state==='suspended')audioCtx.resume();
-}
-
-function loop(){
-update();
-draw();
-requestAnimationFrame(loop);
-}
-loop();
-
-if(save.nick){
-updateMenu();
-show('menuScreen');
-}else{
-show('firstScreen');
-}
-</script>
 </body>
 </html>
