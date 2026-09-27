@@ -13,64 +13,68 @@ body {
   line-height: 1.6;
   min-height: 100vh;
 }
+
+/* ШАПКА */
 .header {
   text-align: center;
-  padding: 50px 20px 30px;
+  padding: 60px 20px 40px;
   background: radial-gradient(circle at 50% 0%, #1a2a4a 0%, transparent 70%);
+  border-bottom: 1px solid #2a4a6e;
 }
 .header h1 {
   color: #7fc8ff;
-  font-size: 42px;
+  font-size: 46px;
   font-weight: 900;
   margin-bottom: 10px;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 30px rgba(127,200,255,0.5);
 }
-.header p {
+.header .subtitle {
   color: #e8b84a;
-  font-size: 18px;
-  margin-bottom: 25px;
+  font-size: 20px;
+  margin-bottom: 30px;
 }
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  margin-top: 20px;
+.header .version {
+  color: #8fa8c0;
+  font-size: 13px;
+  margin-top: 15px;
 }
 .btn {
   display: inline-block;
-  padding: 16px 45px;
-  font-size: 17px;
+  padding: 18px 50px;
+  font-size: 18px;
   font-weight: bold;
   text-decoration: none;
   border-radius: 12px;
-  transition: transform 0.1s;
-  min-width: 280px;
-  text-align: center;
-}
-.btn:active { transform: scale(0.97); }
-.btn-download {
   background: linear-gradient(180deg, #4a9e5c, #2f6b3c);
   color: #fff;
   box-shadow: 0 4px 20px rgba(74,158,92,0.5);
+  margin-top: 15px;
+  transition: transform 0.1s;
 }
-.btn-play {
-  background: linear-gradient(180deg, #3a6ea5, #244a75);
-  color: #fff;
-  box-shadow: 0 4px 20px rgba(58,110,165,0.5);
-}
+.btn:active { transform: scale(0.97); }
+
+/* КОНТЕЙНЕР */
 .container {
-  max-width: 900px;
+  max-width: 950px;
   margin: 0 auto;
   padding: 30px 20px;
 }
 h2 {
   color: #7fc8ff;
-  font-size: 24px;
-  margin: 30px 0 15px;
+  font-size: 26px;
+  margin: 40px 0 18px;
   border-bottom: 2px solid #2a4a6e;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
+h3 {
+  color: #e8b84a;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+p { color: #b8c8d8; }
+
+/* ФИЧИ */
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -81,107 +85,219 @@ h2 {
   background: #152030;
   border: 2px solid #2a4a6e;
   border-radius: 12px;
-  padding: 18px;
+  padding: 20px;
+  transition: transform 0.15s;
 }
-.feature h3 {
-  color: #e8b84a;
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-.feature p {
-  color: #a8b8c8;
-  font-size: 14px;
-}
-.screenshots {
+.feature:hover { transform: translateY(-3px); border-color: #3a6ea5; }
+.feature h3 { color: #e8b84a; font-size: 16px; margin-bottom: 8px; }
+.feature p { color: #a8b8c8; font-size: 14px; }
+
+/* НАПАРНИКИ */
+.companions {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
   margin: 20px 0;
 }
-.screenshots img {
-  width: 100%;
-  border-radius: 12px;
-  border: 2px solid #2a4a6e;
+.companion {
   background: #152030;
+  border: 2px solid #2a4a6e;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
 }
+.companion .name { color: #7fc8ff; font-weight: bold; font-size: 15px; }
+.companion .desc { color: #8fa8c0; font-size: 12px; margin-top: 5px; }
+
+/* ТАБЛИЦА */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: #152030;
+  border-radius: 12px;
+  overflow: hidden;
+}
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #2a4a6e;
+  font-size: 14px;
+}
+th { background: #1a2a4a; color: #7fc8ff; font-weight: bold; }
+td { color: #b8c8d8; }
+tr:last-child td { border-bottom: none; }
+
+/* FAQ */
+.faq {
+  background: #152030;
+  border: 2px solid #2a4a6e;
+  border-radius: 12px;
+  padding: 18px;
+  margin: 12px 0;
+}
+.faq .q { color: #e8b84a; font-weight: bold; margin-bottom: 8px; }
+.faq .a { color: #a8b8c8; font-size: 14px; }
+
+/* ФУТЕР */
 footer {
   text-align: center;
-  padding: 30px 20px;
+  padding: 40px 20px;
   color: #8fa8c0;
   font-size: 14px;
   border-top: 1px solid #2a4a6e;
-  margin-top: 40px;
+  margin-top: 50px;
+  background: #0a0e1a;
 }
 footer a {
   color: #7fc8ff;
   text-decoration: none;
   margin: 0 8px;
 }
+footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 
+<!-- ШАПКА -->
 <div class="header">
   <h1>🚀 КОСМО ТУРБИКС</h1>
-  <p>Защити галактику от инопланетян!</p>
-  <div class="buttons">
-    <a href="https://raw.githubusercontent.com/majidovmuhammad23774/cosmo-turbix/main/CosmoTurbix.apk"
-       class="btn btn-download">📥 СКАЧАТЬ APK</a>
-    <a href="game.html" class="btn btn-play">▶ ИГРАТЬ ОНЛАЙН</a>
-  </div>
+  <p class="subtitle">Защити галактику от инопланетян!</p>
+  <a href="https://raw.githubusercontent.com/majidovmuhammad23774/cosmo-turbix/main/CosmoTurbix.apk"
+     class="btn">📥 СКАЧАТЬ APK</a>
+  <p class="version">Версия 1.0 • Android</p>
 </div>
 
 <div class="container">
-  <h2>О игре</h2>
-  <p>Космо Турбикс — это космическая аркада, где ты управляешь танком и защищаешь галактику от нашествия инопланетян. Собери команду напарников, прокачай танк и стань лучшим защитником!</p>
 
+  <!-- О ИГРЕ -->
+  <h2>О игре</h2>
+  <p>Космо Турбикс — это космическая аркада, где ты управляешь танком и защищаешь галактику от нашествия инопланетян. Уничтожай врагов, собирай монеты, покупай напарников и стань лучшим защитником космоса!</p>
+
+  <!-- ВОЗМОЖНОСТИ -->
   <h2>Возможности</h2>
   <div class="features">
     <div class="feature">
-      <h3>👽 20+ инопланетян</h3>
-      <p>Разные враги с уникальным поведением и стрельбой</p>
+      <h3>👽 Инопланетяне</h3>
+      <p>Враги летят сверху и стреляют в тебя. Чем дальше — тем сложнее</p>
     </div>
     <div class="feature">
-      <h3>🚜 5+ напарников</h3>
+      <h3>🚜 Напарники-танки</h3>
       <p>Покупай бойцов, которые ездят сами и стреляют по врагам</p>
     </div>
     <div class="feature">
       <h3>💰 Монеты и флиппингсы</h3>
-      <p>Зарабатывай валюту и обменивай (1000 монет = 240 флиппингсов)</p>
+      <p>Две валюты. Обмен: 1000 монет = 240 флиппингсов</p>
     </div>
     <div class="feature">
       <h3>🛒 Магазин</h3>
-      <p>Покупай улучшения и новых напарников</p>
+      <p>Улучшения и новые напарники за валюту</p>
     </div>
     <div class="feature">
-      <h3>📱 Работает офлайн</h3>
-      <p>Играй без интернета в любое время</p>
+      <h3>📱 Офлайн</h3>
+      <p>Работает без интернета — играй где угодно</p>
     </div>
     <div class="feature">
       <h3>💾 Сохранение</h3>
-      <p>Прогресс сохраняется на телефоне</p>
+      <p>Прогресс сохраняется автоматически</p>
     </div>
   </div>
 
-  <h2>Скриншоты</h2>
-  <div class="screenshots">
-    <img src="screenshots/screen1.png" alt="Главное меню" onerror="this.style.display='none'">
-    <img src="screenshots/screen2.png" alt="Бой" onerror="this.style.display='none'">
-    <img src="screenshots/screen3.png" alt="Магазин" onerror="this.style.display='none'">
+  <!-- НАПАРНИКИ -->
+  <h2>Напарники</h2>
+  <p>Твои боевые товарищи. Каждый ездит сам и стреляет по врагам.</p>
+  <div class="companions">
+    <div class="companion">
+      <div class="name">⚡ Заряд</div>
+      <div class="desc">Первый напарник, дешёвый</div>
+    </div>
+    <div class="companion">
+      <div class="name">☄️ Комета</div>
+      <div class="desc">Стреляет быстрее</div>
+    </div>
+    <div class="companion">
+      <div class="name">🛡️ Титан</div>
+      <div class="desc">Крепкий, больше урона</div>
+    </div>
+    <div class="companion">
+      <div class="name">👻 Фантом</div>
+      <div class="desc">Мощный стрелок</div>
+    </div>
+    <div class="companion">
+      <div class="name">⛈️ Гроза</div>
+      <div class="desc">Всё в одном — лучший</div>
+    </div>
   </div>
-  <p style="color:#8fa8c0; font-size:14px; text-align:center;">
-    (Скриншоты появятся, когда ты загрузишь их в папку <b>screenshots/</b>)
-  </p>
+
+  <!-- ВАЛЮТЫ -->
+  <h2>Валюты</h2>
+  <table>
+    <tr>
+      <th>Валюта</th>
+      <th>Как получить</th>
+      <th>Зачем</th>
+    </tr>
+    <tr>
+      <td>💰 Монеты</td>
+      <td>За убийство врагов (20 за волну)</td>
+      <td>Покупка напарников</td>
+    </tr>
+    <tr>
+      <td>🪙 Флиппингсы</td>
+      <td>За волны (1 за волну)</td>
+      <td>Редкие покупки</td>
+    </tr>
+  </table>
+
+  <!-- КАК ИГРАТЬ -->
+  <h2>Как играть</h2>
+  <div class="faq">
+    <div class="q">1. Скачай APK</div>
+    <div class="a">Нажми кнопку «Скачать APK» вверху и установи игру на телефон</div>
+  </div>
+  <div class="faq">
+    <div class="q">2. Введи никнейм</div>
+    <div class="a">При первом запуске игра спросит имя</div>
+  </div>
+  <div class="faq">
+    <div class="q">3. Управляй танком</div>
+    <div class="a">Кнопки ◀ ▶ внизу экрана. Стрельба автоматическая</div>
+  </div>
+  <div class="faq">
+    <div class="q">4. Покупай напарников</div>
+    <div class="a">В меню «Напарники» покупай бойцов за монеты</div>
+  </div>
+
+  <!-- ЧАСТЫЕ ВОПРОСЫ -->
+  <h2>Частые вопросы</h2>
+  <div class="faq">
+    <div class="q">❓ Игра бесплатная?</div>
+    <div class="a">Да, полностью бесплатная. Без рекламы и без встроенных покупок</div>
+  </div>
+  <div class="faq">
+    <div class="q">❓ Нужен интернет?</div>
+    <div class="a">Нет, игра работает офлайн</div>
+  </div>
+  <div class="faq">
+    <div class="q">❓ На каких устройствах работает?</div>
+    <div class="a">На любых Android-телефонах и планшетах</div>
+  </div>
+  <div class="faq">
+    <div class="q">❓ Как сохраняется прогресс?</div>
+    <div class="a">Автоматически на телефоне. Можно играть с того же устройства и продолжать</div>
+  </div>
+
 </div>
 
+<!-- ФУТЕР -->
 <footer>
   <p>👨‍💻 Разработчик: Мухаммад Маджидов, 9 лет</p>
-  <p style="margin-top:10px;">
-    <a href="game.html">Играть</a> |
+  <p style="margin-top:15px;">
     <a href="privacy.html">Политика конфиденциальности</a> |
-    <a href="https://github.com/majidovmuhammad23774/cosmo-turbix">GitHub</a>
+    <a href="https://github.com/majidovmuhammad23774/cosmo-turbix">GitHub</a> |
+    <a href="https://majidovmuhammad23774.github.io/Frontier-site/">Гром Брони</a>
   </p>
-  <p style="margin-top:15px;">© 2026 Космо Турбикс</p>
+  <p style="margin-top:20px;">© 2026 Космо Турбикс. Все права защищены.</p>
 </footer>
 
 </body>
