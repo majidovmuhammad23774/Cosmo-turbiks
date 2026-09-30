@@ -3,267 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Космо Турбикс — Защити галактику!</title>
+<title>Космо Турбикс — Космическая аркада</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  background: linear-gradient(180deg, #0f1626 0%, #0a0e1a 100%);
-  color: #d0dae8;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  line-height: 1.6;
-  min-height: 100vh;
-}
-.header {
-  text-align: center;
-  padding: 60px 20px 40px;
-  background: radial-gradient(circle at 50% 0%, #1a2a4a 0%, transparent 70%);
-  border-bottom: 1px solid #2a4a6e;
-}
-.header h1 {
-  color: #7fc8ff;
-  font-size: 46px;
-  font-weight: 900;
-  margin-bottom: 10px;
-  letter-spacing: 3px;
-  text-shadow: 0 0 30px rgba(127,200,255,0.5);
-}
-.header .subtitle {
-  color: #e8b84a;
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-.header .version {
-  color: #8fa8c0;
-  font-size: 13px;
-  margin-top: 15px;
-}
-.btn {
-  display: inline-block;
-  padding: 18px 50px;
-  font-size: 18px;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #4a9e5c, #2f6b3c);
-  color: #fff;
-  box-shadow: 0 4px 20px rgba(74,158,92,0.5);
-  margin-top: 15px;
-  transition: transform 0.1s;
-}
-.btn:active { transform: scale(0.97); }
-.container {
-  max-width: 950px;
-  margin: 0 auto;
-  padding: 30px 20px;
-}
-h2 {
-  color: #7fc8ff;
-  font-size: 26px;
-  margin: 40px 0 18px;
-  border-bottom: 2px solid #2a4a6e;
-  padding-bottom: 10px;
-}
-p { color: #b8c8d8; }
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
-  margin: 20px 0;
-}
-.feature {
-  background: #152030;
-  border: 2px solid #2a4a6e;
-  border-radius: 12px;
-  padding: 20px;
-}
-.feature h3 { color: #e8b84a; font-size: 16px; margin-bottom: 8px; }
-.feature p { color: #a8b8c8; font-size: 14px; }
-.companions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-  margin: 20px 0;
-}
-.companion {
-  background: #152030;
-  border: 2px solid #2a4a6e;
-  border-radius: 12px;
-  padding: 15px;
-  text-align: center;
-}
-.companion .name { color: #7fc8ff; font-weight: bold; font-size: 15px; }
-.companion .desc { color: #8fa8c0; font-size: 12px; margin-top: 5px; }
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  background: #152030;
-  border-radius: 12px;
-  overflow: hidden;
-}
-th, td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #2a4a6e;
-  font-size: 14px;
-}
-th { background: #1a2a4a; color: #7fc8ff; font-weight: bold; }
-td { color: #b8c8d8; }
-.faq {
-  background: #152030;
-  border: 2px solid #2a4a6e;
-  border-radius: 12px;
-  padding: 18px;
-  margin: 12px 0;
-}
-.faq .q { color: #e8b84a; font-weight: bold; margin-bottom: 8px; }
-.faq .a { color: #a8b8c8; font-size: 14px; }
-footer {
-  text-align: center;
-  padding: 40px 20px;
-  color: #8fa8c0;
-  font-size: 14px;
-  border-top: 1px solid #2a4a6e;
-  margin-top: 50px;
-  background: #0a0e1a;
-}
-footer a {
-  color: #7fc8ff;
-  text-decoration: none;
-  margin: 0 8px;
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#0a0a2a,#000010);color:#d0dae8;min-height:100vh;padding:15px;text-align:center}
+.container{max-width:800px;margin:0 auto}
+.hero{padding:30px 15px;border-radius:20px;margin-bottom:20px;background:radial-gradient(circle at 50% 0%,rgba(127,200,255,0.15),transparent 70%)}
+h1{font-size:44px;color:#7fc8ff;text-shadow:0 0 30px #00aaff;margin:10px 0;letter-spacing:4px;font-weight:900}
+.sub{font-size:17px;color:#e8b84a;margin-bottom:8px}
+.ver{font-size:13px;color:#808090;margin-bottom:18px}
+.slogan{background:rgba(127,200,255,0.15);border:2px solid #7fc8ff;border-radius:12px;padding:12px;margin:15px auto;max-width:500px;font-size:14px;font-weight:bold;color:#fff}
+.buttons{display:flex;flex-direction:column;gap:12px;align-items:center;margin:20px 0}
+.btn{display:block;width:100%;max-width:400px;padding:16px 30px;font-size:17px;font-weight:bold;color:#fff;text-decoration:none;border-radius:14px;border:3px solid;font-family:inherit;cursor:pointer}
+.btn.apk{background:linear-gradient(180deg,#3a8a3a,#2a602a);border-color:#5aca5a}
+.btn.online{background:linear-gradient(180deg,#3a6ea5,#244a75);border-color:#7fc8ff}
+.btn.launcher{background:linear-gradient(180deg,#8a4a9e,#5c2f6b);border-color:#c87fe8}
+.block{background:rgba(20,30,60,0.6);border:2px solid rgba(90,140,200,0.3);border-radius:15px;padding:20px;margin:18px 0;text-align:left}
+.block h2{color:#7fc8ff;font-size:20px;margin-bottom:12px;text-align:center}
+.block li{font-size:14px;color:#d0d0e0;padding:6px 0;list-style:none;border-bottom:1px solid rgba(255,255,255,0.08)}
+.block li:last-child{border:none}
+.review{background:rgba(20,20,40,0.7);border-left:3px solid #7fc8ff;border-radius:8px;padding:12px;margin:8px 0;font-size:13px;color:#c0c0d0;text-align:left}
+.review b{color:#7fc8ff}
+#reviewName,#reviewText{padding:10px;font-size:14px;border:2px solid #3a6ea5;border-radius:8px;background:#0f1626;color:#fff;width:100%;margin:5px 0;outline:none;font-family:inherit}
+#reviewText{min-height:70px;resize:vertical}
+.review-btn{background:linear-gradient(180deg,#3a8a3a,#2a602a);color:#fff;padding:12px;border:2px solid #5aca5a;border-radius:10px;font-size:15px;font-weight:bold;cursor:pointer;margin-top:8px;width:100%;font-family:inherit}
+.footer{margin-top:30px;padding:20px 0;font-size:13px;color:#606070;border-top:1px solid rgba(255,255,255,0.1)}
+.footer a{color:#7fc8ff;text-decoration:none}
+#toTop{position:fixed;bottom:20px;right:20px;width:50px;height:50px;border-radius:50%;background:linear-gradient(180deg,#3a6ea5,#244a75);border:2px solid #7fc8ff;color:#fff;font-size:20px;font-weight:bold;cursor:pointer;display:none;z-index:100}
+#toTop.show{display:block}
 </style>
 </head>
 <body>
-
-<div class="header">
-  <h1>🚀 КОСМО ТУРБИКС</h1>
-  <p class="subtitle">Защити галактику от инопланетян!</p>
-  <a href="https://raw.githubusercontent.com/majidovmuhammad23774/Cosmo-turbiks/main/CosmoTurbix.apk"
-     class="btn">📥 СКАЧАТЬ APK</a>
-  <p class="version">Версия 1.0 • Android</p>
-</div>
-
 <div class="container">
 
-  <h2>О игре</h2>
-  <p>Космо Турбикс — это космическая аркада, где ты управляешь танком и защищаешь галактику от нашествия инопланетян. Уничтожай врагов, собирай монеты, покупай напарников и стань лучшим защитником космоса!</p>
+<div class="hero">
+<h1>🚀 КОСМО ТУРБИКС</h1>
+<p class="sub">Космическая аркада</p>
+<p class="ver">Версия 1.0 | Android | Армор Геймс Студио</p>
+<div class="slogan">🌌 ЗАЩИТИ ГАЛАКТИКУ ОТ ИНОПЛАНЕТЯН! 🌌</div>
+</div>
 
-  <h2>Возможности</h2>
-  <div class="features">
-    <div class="feature">
-      <h3>👽 Инопланетяне</h3>
-      <p>Враги летят сверху и стреляют в тебя. Чем дальше — тем сложнее</p>
-    </div>
-    <div class="feature">
-      <h3>🚜 Напарники-танки</h3>
-      <p>Покупай бойцов, которые ездят сами и стреляют по врагам</p>
-    </div>
-    <div class="feature">
-      <h3>💰 Монеты и флиппингсы</h3>
-      <p>Две валюты. Обмен: 1000 монет = 240 флиппингсов</p>
-    </div>
-    <div class="feature">
-      <h3>🛒 Магазин</h3>
-      <p>Улучшения и новые напарники за валюту</p>
-    </div>
-    <div class="feature">
-      <h3>📱 Офлайн</h3>
-      <p>Работает без интернета — играй где угодно</p>
-    </div>
-    <div class="feature">
-      <h3>💾 Сохранение</h3>
-      <p>Прогресс сохраняется автоматически</p>
-    </div>
-  </div>
+<div class="buttons">
+<a href="https://github.com/majidovmuhammad23774/Cosmo-turbiks/raw/main/CosmoTurbix.apk" download class="btn apk">📥 СКАЧАТЬ APK</a>
+<a href="game.html" class="btn online">▶ ИГРАТЬ ОНЛАЙН</a>
+<a href="https://majidovmuhammad23774.github.io/Frontier-site/launcher.html" class="btn launcher">🎮 АРМОР ГЕЙМС — ВСЕ ИГРЫ</a>
+</div>
 
-  <h2>Напарники</h2>
-  <p>Твои боевые товарищи. Каждый ездит сам и стреляет по врагам.</p>
-  <div class="companions">
-    <div class="companion">
-      <div class="name">⚡ Заряд</div>
-      <div class="desc">Первый напарник</div>
-    </div>
-    <div class="companion">
-      <div class="name">☄️ Комета</div>
-      <div class="desc">Стреляет быстрее</div>
-    </div>
-    <div class="companion">
-      <div class="name">🛡️ Титан</div>
-      <div class="desc">Крепкий</div>
-    </div>
-    <div class="companion">
-      <div class="name">👻 Фантом</div>
-      <div class="desc">Мощный</div>
-    </div>
-    <div class="companion">
-      <div class="name">⛈️ Гроза</div>
-      <div class="desc">Лучший</div>
-    </div>
-  </div>
+<div class="block">
+<h2>🎯 Что в игре</h2>
+<ul>
+<li>🚀 Управляй космическим танком</li>
+<li>👽 Уничтожай инопланетян</li>
+<li>🤖 5 напарников — летают рядом и стреляют</li>
+<li>🛒 Магазин: +урон, +жизни, +скорость</li>
+<li>👤 Профиль с монетами и убийствами</li>
+<li>💾 Сохранение прогресса</li>
+<li>📱 Работает офлайн</li>
+</ul>
+</div>
 
-  <h2>Валюты</h2>
-  <table>
-    <tr>
-      <th>Валюта</th>
-      <th>Как получить</th>
-      <th>Зачем</th>
-    </tr>
-    <tr>
-      <td>💰 Монеты</td>
-      <td>За убийство врагов</td>
-      <td>Покупка напарников</td>
-    </tr>
-    <tr>
-      <td>🪙 Флиппингсы</td>
-      <td>За волны</td>
-      <td>Редкие покупки</td>
-    </tr>
-  </table>
+<div class="block">
+<h2>📸 Скриншоты</h2>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+<img src="screenshots/screen1.jpg" alt="Меню" onerror="this.style.display='none'" style="width:100%;border-radius:10px;border:2px solid #7fc8ff">
+<img src="screenshots/screen2.jpg" alt="Бой" onerror="this.style.display='none'" style="width:100%;border-radius:10px;border:2px solid #7fc8ff">
+<img src="screenshots/screen3.jpg" alt="Напарники" onerror="this.style.display='none'" style="width:100%;border-radius:10px;border:2px solid #7fc8ff">
+<img src="screenshots/screen4.jpg" alt="Магазин" onerror="this.style.display='none'" style="width:100%;border-radius:10px;border:2px solid #7fc8ff">
+</div>
+</div>
 
-  <h2>Как играть</h2>
-  <div class="faq">
-    <div class="q">1. Скачай APK</div>
-    <div class="a">Нажми «Скачать APK» вверху и установи игру</div>
-  </div>
-  <div class="faq">
-    <div class="q">2. Введи никнейм</div>
-    <div class="a">При первом запуске игра спросит имя</div>
-  </div>
-  <div class="faq">
-    <div class="q">3. Управляй танком</div>
-    <div class="a">Кнопки ◀ ▶ внизу. Стрельба автоматическая</div>
-  </div>
-  <div class="faq">
-    <div class="q">4. Покупай напарников</div>
-    <div class="a">В меню «Напарники» покупай бойцов за монеты</div>
-  </div>
+<div class="block">
+<h2>💬 Отзывы игроков</h2>
+<div id="reviewsList">
+<div class="review"><b>Мухаммад (разработчик):</b> Спасибо всем, кто играет! Пишите отзывы!</div>
+</div>
+<input type="text" id="reviewName" placeholder="Твоё имя" maxlength="20">
+<textarea id="reviewText" placeholder="Напиши отзыв..."></textarea>
+<button class="review-btn" id="sendReview">📩 ОТПРАВИТЬ ОТЗЫВ</button>
+</div>
 
-  <h2>Частые вопросы</h2>
-  <div class="faq">
-    <div class="q">❓ Игра бесплатная?</div>
-    <div class="a">Да, без рекламы и без встроенных покупок</div>
-  </div>
-  <div class="faq">
-    <div class="q">❓ Нужен интернет?</div>
-    <div class="a">Нет, игра работает офлайн</div>
-  </div>
-  <div class="faq">
-    <div class="q">❓ На каких устройствах работает?</div>
-    <div class="a">На любых Android-телефонах и планшетах</div>
-  </div>
+<div class="block">
+<h2>📖 Как играть</h2>
+<ul>
+<li><b>Джойстик</b> слева — движение</li>
+<li><b>Кнопка ОГОНЬ</b> справа — стрельба</li>
+<li><b>Победа</b> — убей всех инопланетян</li>
+</ul>
+</div>
+
+<div class="footer">
+© 2026 <b>Армор Геймс Студио</b><br>
+Автор: Мухаммад Маджидов, 9 лет<br>
+<a href="https://github.com/majidovmuhammad23774/Cosmo-turbiks">GitHub</a> |
+<a href="privacy.html">Политика</a>
+</div>
 
 </div>
 
-<footer>
-  <p>👨‍💻 Разработчик: Мухаммад Маджидов, 9 лет</p>
-  <p style="margin-top:15px;">
-    <a href="privacy.html">Политика конфиденциальности</a> |
-    <a href="https://github.com/majidovmuhammad23774/Cosmo-turbiks">GitHub</a> |
-    <a href="https://majidovmuhammad23774.github.io/Frontier-site/">Гром Брони</a>
-  </p>
-  <p style="margin-top:20px;">© 2026 Космо Турбикс</p>
-</footer>
+<button id="toTop">↑</button>
 
+<script>
+window.addEventListener('scroll',()=>{
+const b=document.getElementById('toTop');
+if(window.scrollY>300)b.classList.add('show');else b.classList.remove('show');
+});
+document.getElementById('toTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+function loadReviews(){
+const s=localStorage.getItem('cosmoReviews');
+if(s){JSON.parse(s).forEach(r=>{addReview(r.name,r.text,r.date);});}
+}
+function addReview(name,text,date){
+const c=document.getElementById('reviewsList');
+const d=document.createElement('div');
+d.className='review';
+d.innerHTML='<b>'+name+':</b> '+text+'<small style="color:#808090;font-size:11px;display:block;margin-top:4px">'+date+'</small>';
+c.appendChild(d);
+}
+loadReviews();
+
+document.getElementById('sendReview').onclick=()=>{
+const n=document.getElementById('reviewName').value.trim();
+const t=document.getElementById('reviewText').value.trim();
+if(!n||!t){alert('Заполни имя и отзыв!');return;}
+const d=new Date().toLocaleDateString('ru-RU');
+const r=JSON.parse(localStorage.getItem('cosmoReviews')||'[]');
+r.push({name:n,text:t,date:d});
+localStorage.setItem('cosmoReviews',JSON.stringify(r));
+addReview(n,t,d);
+document.getElementById('reviewName').value='';
+document.getElementById('reviewText').value='';
+alert('✅ Спасибо за отзыв!');
+};
+</script>
 </body>
 </html>
