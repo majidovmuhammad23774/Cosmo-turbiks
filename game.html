@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Космо Турбикс</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-tap-highlight-color:transparent}
+body{background:#000;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Segoe UI',Arial,sans-serif;overflow:hidden;touch-action:none}
+#wrap{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:#000}
+canvas{display:block;max-width:100%;max-height:100%}
+.screen{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,#0a0a2a,#000010);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:100;color:#d0dae8;text-align:center;padding:15px;overflow-y:auto}
+.screen.active{display:flex}
+h1{color:#7fc8ff;font-size:30px;margin-bottom:5px;font-weight:900;text-shadow:0 0 25px #00aaff}
+h2{color:#e8b84a;font-size:14px;margin-bottom:15px}
+h3{color:#7fc8ff;font-size:18px;margin-bottom:10px}
+.menu-btn{padding:12px 30px;font-size:15px;font-weight:bold;color:#fff;border:none;border-radius:12px;cursor:pointer;margin:5px 0;min-width:230px;font-family:inherit}
+.menu-btn.green{background:linear-gradient(180deg,#4a9e5c,#2f6b3c)}
+.menu-btn.blue{background:linear-gradient(180deg,#3a6ea5,#244a75)}
+.menu-btn.gold{background:linear-gradient(180deg,#c8a042,#8a6b1e)}
+.menu-btn.purple{background:linear-gradient(180deg,#8a4a9e,#5c2f6b)}
+.menu-btn.red{background:linear-gradient(180deg,#c84a4a,#8a2f2f)}
+#nickInput{padding:14px 18px;font-size:16px;border:2px solid #3a6ea5;border-radius:12px;background:#152030;color:#fff;text-align:center;margin:12px 0;width:240px;outline:none}
+.stat{background:#152030;padding:8px 15px;border-radius:10px;border:1px solid #2a4a6e;margin:4px;font-weight:bold;display:inline-block;font-size:14px}
+.stat b{color:#e8b84a}
+.back-btn{position:absolute;top:12px;left:12px;padding:10px 18px;background:#244a75;border:2px solid #3a6ea5;border-radius:10px;color:#fff;font-weight:bold;font-size:13px;cursor:pointer}
+.shop-item{background:#152030;border:2px solid #2a4a6e;border-radius:12px;padding:12px;margin:6px auto;width:92%;max-width:420px;display:flex;justify-content:space-between;align-items:center;text-align:left}
+.shop-item.current{border-color:#4a9e5c;background:#1a2e22}
+.shop-item.premium{border:3px solid #FFD700;box-shadow:0 0 20px rgba(255,215,0,0.5)}
+.shop-info{flex:1}
+.shop-info b{color:#e8b84a;font-size:14px;display:block}
+.shop-info small{color:#8fa8c0;font-size:12px}
+.small-btn{padding:8px 14px;font-size:12px;font-weight:bold;color:#fff;background:#3a6ea5;border:none;border-radius:8px;cursor:pointer;min-width:85px}
+.small-btn.green{background:#4a9e5c}
+.small-btn.gold{background:#c8a042;color:#000}
+#hud{position:absolute;top:10px;left:10px;right:10px;display:none;justify-content:space-between;color:#fff;font-size:12px;font-weight:800;z-index:10;pointer-events:none}
+.hud-block{background:rgba(0,10,30,0.85);padding:7px 12px;border-radius:10px;border:1px solid #3a6ea5}
+#joystick{position:absolute;bottom:25px;left:25px;width:130px;height:130px;border-radius:50%;background:rgba(0,50,100,0.4);border:3px solid #3a6ea5;display:none;z-index:50;touch-action:none}
+#stick{position:absolute;top:50%;left:50%;width:55px;height:55px;border-radius:50%;background:radial-gradient(circle,#7fc8ff,#2244aa);border:2px solid #7fc8ff;transform:translate(-50%,-50%)}
+.fire-btn{position:absolute;bottom:35px;right:25px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#ff6a6a,#8a2f2f);border:4px solid #ff8888;color:#fff;font-weight:bold;font-size:15px;display:none;z-index:50;touch-action:none;font-family:inherit}
+.msg-box{background:#152030;border:2px solid #2a4a6e;border-radius:12px;padding:18px;margin:10px;max-width:400px;width:90%}
+</style>
+</head>
+<body>
+<div id="wrap">
+<canvas id="game"></canvas>
+<div id="hud">
+<div class="hud-block">🚀 <span id="hudName">Пилот</span></div>
+<div class="hud-block">❤️ <span id="lives">3</span> | 🌊 <span id="wave">1</span></div>
+<div class="hud-block">👽 <span id="enemyCount">0</span> | 💰 <span id="score">0</span></div>
+</div>
+<div id="joystick"><div id="stick"></div></div>
+<button class="fire-btn" id="fireBtn">ОГОНЬ</button>
+
+<div class="screen active" id="firstScreen">
+<h1>🚀 КОСМО ТУРБИКС</h1>
+<h2>ЗАЩИТИ ГАЛАКТИКУ!</h2>
+<input type="text" id="nickInput" maxlength="15" placeholder="Введи никнейм">
+<button class="menu-btn green" id="startBtn">НАЧАТЬ</button>
+</div>
+
+<div class="screen" id="menuScreen">
+<h1>🚀 КОСМО ТУРБИКС</h1>
+<div style="margin:10px 0">
+<div class="stat">💰 <b id="menuCoins">5000</b></div>
+<div class="stat">⭐ <b id="menuLevel">1</b></div>
+<div class="stat">👽 <b id="menuKills">0</b></div>
+</div>
+<button class="menu-btn green" id="playBtn">🚀 В БОЙ</button>
+<button class="menu-btn blue" id="companionsBtn">🤖 НАПАРНИКИ</button>
+<button class="menu-btn gold" id="shopBtn">🛒 МАГАЗИН</button>
+<button class="menu-btn purple" id="profileBtn">👤 ПРОФИЛЬ</button>
+<button class="menu-btn red" id="launcherBtn">🎮 АРМОР ГЕЙМС</button>
+</div>
+
+<div class="screen" id="companionsScreen">
+<button class="back-btn" id="compBackBtn">← НАЗАД</button>
+<h3>🤖 НАПАРНИКИ</h3>
+<div id="companionsList" style="width:100%"></div>
+</div>
+
+<div class="screen" id="shopScreen">
+<button class="back-btn" id="shopBackBtn">← НАЗАД</button>
+<h3>🛒 МАГАЗИН</h3>
+<div id="shopList" style="width:100%"></div>
+</div>
+
+<div class="screen" id="profileScreen">
+<button class="back-btn" id="profBackBtn">← НАЗАД</button>
+<h3>👤 ПРОФИЛЬ</h3>
+<div class="msg-box">
+<div style="font-size:18px;margin:8px 0">🚀 <b id="profName" style="color:#7fc8ff">Пилот</b></div>
+<div class="stat">💰 <b id="profCoins">0</b></div>
+<div class="stat">⭐ <b id="profLevel">1</b></div>
+<div class="stat">👽 Убито: <b id="profKills">0</b></div>
+<div class="stat">🤖 Напарников: <b id="profCompanions">0</b></div>
+</div>
+</div>
+
+<div class="screen" id="msgScreen">
+<h1 id="msgTitle">ОК</h1>
+<p id="msgText" style="font-size:15px;margin:18px;color:#a8b8c8"></p>
+<button class="menu-btn green" id="msgOkBtn">OK</button>
+</div>
+</div>
+
+<script>
+let save={nick:'',coins:5000,level:1,kills:0,companions:[],activeCompanions:[],upgrades:{}};
+try{const d=localStorage.getItem('cosmoSave');if(d)save=Object.assign(save,JSON.parse(d));}catch(e){}
+function writeSave(){try{localStorage.setItem('cosmoSave',JSON.stringify(save));}catch(e){}}
+
+const COMPANIONS=[
+{name:'Малыш',price:1,dmg:5,color:'#7fc8ff',fireRate:50,desc:'Стреляет слабо'},
+{name:'Стрелок',price:100,dmg:8,color:'#7fd8a0',fireRate:35,desc:'Стреляет быстрее'},
+{name:'Титан',price:1000,dmg:12,color:'#e8c84a',fireRate:30,desc:'Крепкий'},
+{name:'Фантом',price:10000,dmg:18,color:'#c87fe8',fireRate:25,desc:'Мощный'},
+{name:'Гроза',price:100000,dmg:25,color:'#e87f7f',fireRate:20,desc:'Легендарный'}
+];
+
+const SHOP=[
+{name:'💥 +10 урона',price:500,type:'dmg',val:10},
+{name:'❤️ +1 жизнь',price:1000,type:'lives',val:1},
+{name:'⚡ +10% скорость',price:800,type:'speed',val:10}
+];
+
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(el)el.classList.add('active');}
+function updateMenu(){const a=document.getElementById('menuCoins');if(a)a.textContent=save.coins.toLocaleString();const b=document.getElementById('menuLevel');if(b)b.textContent=save.level;const c=document.getElementById('menuKills');if(c)c.textContent=save.kills||0;}
+function msg(t,x){const a=document.getElementById('msgTitle');if(a)a.textContent=t;const b=document.getElementById('msgText');if(b)b.textContent=x;show('msgScreen');}
+function on(id,fn){const el=document.getElementById(id);if(el)el.onclick=fn;}
+
+on('startBtn',()=>{const v=document.getElementById('nickInput').value.trim();if(!v){alert('Введи ник!');return;}save.nick=v;writeSave();updateMenu();show('menuScreen');});
+on('playBtn',()=>startGame());
+on('companionsBtn',()=>{renderCompanions();show('companionsScreen');});
+on('shopBtn',()=>{renderShop();show('shopScreen');});
+on('profBackBtn',()=>show('menuScreen'));
+on('compBackBtn',()=>show('menuScreen'));
+on('shopBackBtn',()=>show('menuScreen'));
+on('msgOkBtn',()=>show('menuScreen'));
+on('launcherBtn',()=>{location.href='https://majidovmuhammad23774.github.io/Frontier-site/launcher.html';});
+on('profileBtn',()=>{
+const a=document.getElementById('profName');if(a)a.textContent=save.nick;
+const b=document.getElementById('profCoins');if(b)b.textContent=save.coins.toLocaleString();
+const c=document.getElementById('profLevel');if(c)c.textContent=save.level;
+const d=document.getElementById('profKills');if(d)d.textContent=save.kills||0;
+const e=document.getElementById('profCompanions');if(e)e.textContent=save.companions.length;
+show('profileScreen');
+});
+
+function renderCompanions(){const l=document.getElementById('companionsList');l.innerHTML='';COMPANIONS.forEach(c=>{const owned=save.companions.includes(c.name);const active=save.activeCompanions.includes(c.name);const d=document.createElement('div');d.className='shop-item'+(active?' current':'')+(c.price>=10000?' premium':'');d.innerHTML='<div class="shop-info"><b>'+(active?'✅ ':(owned?'🔓 ':''))+c.name+'</b><small>'+c.desc+' | DMG:'+c.dmg+'</small></div><button class="small-btn '+(active?'green':(owned?'':'gold'))+'">'+(active?'АКТИВЕН':(owned?'ВЫБРАТЬ':c.price+'💰'))+'</button>';const b=d.querySelector('button');b.onclick=()=>{if(active){save.activeCompanions=save.activeCompanions.filter(n=>n!==c.name);writeSave();renderCompanions();return;}if(owned){if(save.activeCompanions.length>=3){msg('❌','Максимум 3');return;}save.activeCompanions.push(c.name);writeSave();renderCompanions();return;}if(save.coins>=c.price){save.coins-=c.price;save.companions.push(c.name);save.activeCompanions.push(c.name);writeSave();updateMenu();renderCompanions();msg('✅ КУПЛЕН',c.name);}else msg('❌','Нужно '+c.price.toLocaleString());};l.appendChild(d);});}
+
+function renderShop(){const l=document.getElementById('shopList');l.innerHTML='';SHOP.forEach(s=>{const d=document.createElement('div');d.className='shop-item';d.innerHTML='<div class="shop-info"><b>'+s.name+'</b></div><button class="small-btn gold">'+s.price+'💰</button>';const b=d.querySelector('button');b.onclick=()=>{if(save.coins<s.price){msg('❌','Нужно '+s.price);return;}save.coins-=s.price;if(s.type==='dmg')save.upgrades.dmg=(save.upgrades.dmg||0)+s.val;if(s.type==='lives')save.upgrades.lives=(save.upgrades.lives||0)+s.val;if(s.type==='speed')save.upgrades.speed=(save.upgrades.speed||0)+s.val;writeSave();updateMenu();renderShop();msg('✅ КУПЛЕНО',s.name);};l.appendChild(d);});}
+
+// === ИГРА ===
+const canvas=document.getElementById('game');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+
+let running=false,score=0,lives=3,wave=1,kills=0,waveEnding=false,waveSpawning=false;
+let bullets=[],enemyBullets=[],enemies=[],particles=[],companions=[],stars=[];
+const player={x:0,y:0,w:50,h:50};
+let joyX=0,joyY=0,firePressed=false,shootCd=0,time=0;
+
+for(let i=0;i<100;i++)stars.push({x:Math.random()*1080,y:Math.random()*1920,s:Math.random()*2+0.8,sp:Math.random()*1.5+0.3,color:Math.random()<0.3?'#7fc8ff':'#fff'});
+
+const joystick=document.getElementById('joystick');const stick=document.getElementById('stick');const fireBtn=document.getElementById('fireBtn');
+joystick.addEventListener('touchstart',e=>{e.preventDefault();});
+joystick.addEventListener('touchmove',e=>{e.preventDefault();const r=joystick.getBoundingClientRect();const t=e.touches[0];const cx=r.left+r.width/2,cy=r.top+r.height/2;let dx=t.clientX-cx,dy=t.clientY-cy;const max=r.width/2-30;const len=Math.hypot(dx,dy);if(len>max){dx=dx/len*max;dy=dy/len*max;}joyX=dx/max;joyY=dy/max;stick.style.transform='translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px))';});
+joystick.addEventListener('touchend',e=>{e.preventDefault();joyX=0;joyY=0;stick.style.transform='translate(-50%,-50%)';});
+fireBtn.addEventListener('touchstart',e=>{e.preventDefault();firePressed=true;});
+fireBtn.addEventListener('touchend',e=>{e.preventDefault();firePressed=false;});
+
+let audioCtx=null;
+function playSound(f,t,d,v){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.type=t;o.frequency.setValueAtTime(f,audioCtx.currentTime);g.gain.setValueAtTime(v,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+d);o.start();o.stop(audioCtx.currentTime+d);}catch(e){}}
+
+function addExplosion(x,y,color){for(let i=0;i<8;i++)particles.push({x,y,vx:(Math.random()-0.5)*8,vy:(Math.random()-0.5)*8,life:1,color});}
+
+function spawnEnemy(){const s=Math.random()*20+30;const hp=Math.ceil(wave/2)+2;enemies.push({x:Math.random()*(1080-s*2)+s,y:-s,size:s,hp:hp,maxHp:hp,speed:Math.random()*1.2+0.6+wave*0.1,shootCd:Math.random()*100+80,rot:0});}
+function startWave(){const c=3+wave*2;waveSpawning=true;for(let i=0;i<c;i++)setTimeout(()=>{if(running)spawnEnemy();},i*400);setTimeout(()=>{waveSpawning=false;},c*400+300);}
+
+function startGame(){
+running=true;score=0;lives=3;wave=1;kills=0;waveEnding=false;waveSpawning=false;
+bullets=[];enemyBullets=[];enemies=[];particles=[];
+player.x=540;player.y=1700;
+companions=save.activeCompanions.map((name,i)=>{const c=COMPANIONS.find(x=>x.name===name);return c?{type:c,x:150+i*160,y:1500,dir:Math.random()<0.5?-1:1,shootCd:0}:null;}).filter(x=>x);
+const l=document.getElementById('lives');if(l)l.textContent=lives;
+const w=document.getElementById('wave');if(w)w.textContent=wave;
+const s=document.getElementById('score');if(s)s.textContent=0;
+const hn=document.getElementById('hudName');if(hn)hn.textContent=save.nick;
+const h=document.getElementById('hud');if(h)h.style.display='flex';
+joystick.classList.add('active');fireBtn.classList.add('active');
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+startWave();
+}
+function gameOver(){running=false;const h=document.getElementById('hud');if(h)h.style.display='none';joystick.classList.remove('active');fireBtn.classList.remove('active');msg('💥 ИГРА ОКОНЧЕНА','Волна: '+wave+' | Убито: '+kills);}
+
+function update(){
+if(!running)return;time++;
+const dmgBonus=save.upgrades.dmg||0;
+player.x+=joyX*10;if(player.x<30)player.x=30;if(player.x>1050)player.x=1050;
+shootCd--;
+if(firePressed&&shootCd<=0){bullets.push({x:player.x,y:player.y-30,w:5,h:16,vy:-14,dmg:15+dmgBonus});shootCd=15;playSound(600,'triangle',0.05,0.04);}
+
+companions.forEach(c=>{c.x+=c.dir*2;if(c.x<50||c.x>1030)c.dir*=-1;c.shootCd--;if(c.shootCd<=0){let cl=null,mn=99999;enemies.forEach(e=>{const d=Math.hypot(e.x-c.x,e.y-c.y);if(d<mn){mn=d;cl=e;}});if(cl){c.shootCd=c.type.fireRate;const dx=cl.x-c.x,dy=cl.y-c.y;const len=Math.hypot(dx,dy)||1;bullets.push({x:c.x,y:c.y-15,w:4,h:12,vx:dx/len*10,vy:dy/len*10,dmg:c.type.dmg,color:c.type.color});}}});
+
+for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.x+=(b.vx||0);b.y+=(b.vy||-14);if(b.y<-50||b.x<-50||b.x>1130)bullets.splice(i,1);}
+for(let i=enemyBullets.length-1;i>=0;i--){const b=enemyBullets[i];b.x+=b.vx;b.y+=b.vy;if(b.y>1970||b.y<-50||b.x<-50||b.x>1130){enemyBullets.splice(i,1);continue;}if(Math.hypot(b.x-player.x,b.y-player.y)<25){enemyBullets.splice(i,1);lives--;const l=document.getElementById('lives');if(l)l.textContent=lives;addExplosion(player.x,player.y,'#ff4444');if(lives<=0){gameOver();return;}}}
+
+for(let i=enemies.length-1;i>=0;i--){const e=enemies[i];e.y+=e.speed;e.rot+=0.03;e.shootCd--;
+if(e.shootCd<=0&&e.y>50){e.shootCd=100+Math.random()*60;const dx=player.x-e.x,dy=player.y-e.y;const len=Math.hypot(dx,dy)||1;enemyBullets.push({x:e.x,y:e.y,vx:dx/len*5,vy:dy/len*5,w:7,h:7});}
+if(Math.hypot(e.x-player.x,e.y-player.y)<e.size/2+25){enemies.splice(i,1);lives--;const l=document.getElementById('lives');if(l)l.textContent=lives;addExplosion(player.x,player.y,'#ff4444');if(lives<=0){gameOver();return;}continue;}
+if(e.y>1970){enemies.splice(i,1);continue;}
+for(let j=bullets.length-1;j>=0;j--){const b=bullets[j];if(Math.hypot(b.x-e.x,b.y-e.y)<e.size/2+8){e.hp-=b.dmg;bullets.splice(j,1);if(e.hp<=0){enemies.splice(i,1);kills++;score+=10;const s=document.getElementById('score');if(s)s.textContent=score;save.kills=(save.kills||0)+1;save.coins+=30;writeSave();addExplosion(e.x,e.y,'#44ff44');playSound(200,'sawtooth',0.2,0.1);}break;}}}
+
+const ec=document.getElementById('enemyCount');if(ec)ec.textContent=enemies.length;
+for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx;p.y+=p.vy;p.life-=0.03;if(p.life<=0)particles.splice(i,1);}
+
+if(enemies.length===0&&running&&!waveEnding&&!waveSpawning){waveEnding=true;save.coins+=200;save.level+=1;writeSave();updateMenu();setTimeout(()=>{if(!running)return;wave++;waveEnding=false;const w=document.getElementById('wave');if(w)w.textContent=wave;msg('🏆 ВОЛНА '+wave,'+200 монет!');startWave();},1500);}
+}
+
+function draw(){
+const sc=Math.min(canvas.width/1080,canvas.height/1920);const ox=(canvas.width-1080*sc)/2;const oy=(canvas.height-1920*sc)/2;
+ctx.setTransform(sc,0,0,sc,ox,oy);
+const bg=ctx.createRadialGradient(540,960,100,540,960,1400);
+bg.addColorStop(0,'#0a0a2a');bg.addColorStop(0.5,'#050515');bg.addColorStop(1,'#000005');
+ctx.fillStyle=bg;ctx.fillRect(-50,-50,1180,2020);
+for(const s of stars){s.y+=s.sp;if(s.y>1970){s.y=-10;s.x=Math.random()*1080;}ctx.fillStyle=s.color;ctx.globalAlpha=0.7;ctx.beginPath();ctx.arc(s.x,s.y,s.s,0,Math.PI*2);ctx.fill();}
+ctx.globalAlpha=1;
+ctx.shadowBlur=15;ctx.shadowColor='#7fc8ff';
+for(const b of bullets){ctx.fillStyle=b.color||'#7fc8ff';ctx.fillRect(b.x-b.w/2,b.y-b.h/2,b.w,b.h);}
+ctx.shadowColor='#ff4444';
+for(const b of enemyBullets){ctx.fillStyle='#ff6a6a';ctx.beginPath();ctx.arc(b.x,b.y,b.w,0,Math.PI*2);ctx.fill();}
+ctx.shadowBlur=0;
+for(const e of enemies){ctx.save();ctx.translate(e.x,e.y);ctx.rotate(e.rot);ctx.shadowBlur=20;ctx.shadowColor='#44ff44';ctx.fillStyle='#44cc44';ctx.beginPath();ctx.arc(0,0,e.size,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#000';ctx.beginPath();ctx.arc(-e.size*0.35,-e.size*0.15,e.size*0.22,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(e.size*0.35,-e.size*0.15,e.size*0.22,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ff0000';ctx.beginPath();ctx.arc(-e.size*0.35,-e.size*0.15,e.size*0.09,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(e.size*0.35,-e.size*0.15,e.size*0.09,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#44ff44';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,-e.size);ctx.lineTo(0,-e.size*1.5);ctx.stroke();ctx.fillStyle='#ffff00';ctx.beginPath();ctx.arc(0,-e.size*1.5,e.size*0.15,0,Math.PI*2);ctx.fill();ctx.restore();if(e.hp<e.maxHp){const w=e.size*2;ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillRect(e.x-w/2,e.y-e.size-12,w,4);ctx.fillStyle='#44ff44';ctx.fillRect(e.x-w/2,e.y-e.size-12,w*(e.hp/e.maxHp),4);}}
+for(const c of companions){ctx.shadowBlur=15;ctx.shadowColor=c.type.color;ctx.fillStyle=c.type.color;ctx.beginPath();ctx.arc(c.x,c.y,16,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#000';ctx.beginPath();ctx.arc(c.x-5,c.y-2,3,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(c.x+5,c.y-2,3,0,Math.PI*2);ctx.fill();}
+ctx.save();ctx.translate(player.x,player.y);ctx.shadowBlur=30;ctx.shadowColor='#00ffff';ctx.fillStyle='#3a6ea5';ctx.beginPath();ctx.moveTo(-22,22);ctx.lineTo(22,22);ctx.lineTo(16,-22);ctx.lineTo(-16,-22);ctx.closePath();ctx.fill();ctx.fillStyle='#2244aa';ctx.beginPath();ctx.arc(0,0,14,0,Math.PI*2);ctx.fill();ctx.fillStyle='#7fc8ff';ctx.beginPath();ctx.arc(0,-5,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#aaccff';ctx.fillRect(-3,-42,6,18);ctx.restore();ctx.shadowBlur=0;
+ctx.setTransform(1,0,0,1,0,0);
+}
+
+function loop(){update();draw();requestAnimationFrame(loop);}
+loop();
+
+if(save.nick){updateMenu();show('menuScreen');}
+</script>
+</body>
+</html>
