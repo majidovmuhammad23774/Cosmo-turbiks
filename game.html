@@ -35,9 +35,11 @@ h3{color:#7fc8ff;font-size:18px;margin-bottom:10px}
 .small-btn.gold{background:#c8a042;color:#000}
 #hud{position:absolute;top:10px;left:10px;right:10px;display:none;justify-content:space-between;color:#fff;font-size:12px;font-weight:800;z-index:10;pointer-events:none}
 .hud-block{background:rgba(0,10,30,0.85);padding:7px 12px;border-radius:10px;border:1px solid #3a6ea5}
-#joystick{position:absolute;bottom:25px;left:25px;width:130px;height:130px;border-radius:50%;background:rgba(0,50,100,0.4);border:3px solid #3a6ea5;display:none;z-index:50;touch-action:none}
-#stick{position:absolute;top:50%;left:50%;width:55px;height:55px;border-radius:50%;background:radial-gradient(circle,#7fc8ff,#2244aa);border:2px solid #7fc8ff;transform:translate(-50%,-50%)}
-.fire-btn{position:absolute;bottom:35px;right:25px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#ff6a6a,#8a2f2f);border:4px solid #ff8888;color:#fff;font-weight:bold;font-size:15px;display:none;z-index:50;touch-action:none;font-family:inherit}
+#joystick{position:absolute;bottom:25px;left:25px;width:140px;height:140px;border-radius:50%;background:rgba(0,50,100,0.4);border:3px solid #3a6ea5;display:none;z-index:50;touch-action:none}
+#joystick.active{display:block}
+#stick{position:absolute;top:50%;left:50%;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,#7fc8ff,#2244aa);border:2px solid #7fc8ff;transform:translate(-50%,-50%)}
+.fire-btn{position:absolute;bottom:40px;right:25px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#ff6a6a,#8a2f2f);border:4px solid #ff8888;color:#fff;font-weight:bold;font-size:15px;display:none;z-index:50;touch-action:none;font-family:inherit}
+.fire-btn.active{display:block}
 .msg-box{background:#152030;border:2px solid #2a4a6e;border-radius:12px;padding:18px;margin:10px;max-width:400px;width:90%}
 </style>
 </head>
@@ -110,11 +112,11 @@ try{const d=localStorage.getItem('cosmoSave');if(d)save=Object.assign(save,JSON.
 function writeSave(){try{localStorage.setItem('cosmoSave',JSON.stringify(save));}catch(e){}}
 
 const COMPANIONS=[
-{name:'Малыш',price:1,dmg:5,color:'#7fc8ff',fireRate:50,desc:'Стреляет слабо'},
-{name:'Стрелок',price:100,dmg:8,color:'#7fd8a0',fireRate:35,desc:'Стреляет быстрее'},
-{name:'Титан',price:1000,dmg:12,color:'#e8c84a',fireRate:30,desc:'Крепкий'},
-{name:'Фантом',price:10000,dmg:18,color:'#c87fe8',fireRate:25,desc:'Мощный'},
-{name:'Гроза',price:100000,dmg:25,color:'#e87f7f',fireRate:20,desc:'Легендарный'}
+{name:'Малыш',price:1,dmg:8,color:'#7fc8ff',fireRate:50,desc:'Стреляет слабо'},
+{name:'Стрелок',price:100,dmg:12,color:'#7fd8a0',fireRate:35,desc:'Стреляет быстрее'},
+{name:'Титан',price:1000,dmg:18,color:'#e8c84a',fireRate:30,desc:'Крепкий'},
+{name:'Фантом',price:10000,dmg:25,color:'#c87fe8',fireRate:25,desc:'Мощный'},
+{name:'Гроза',price:100000,dmg:35,color:'#e87f7f',fireRate:20,desc:'Легендарный'}
 ];
 
 const SHOP=[
@@ -136,7 +138,7 @@ on('profBackBtn',()=>show('menuScreen'));
 on('compBackBtn',()=>show('menuScreen'));
 on('shopBackBtn',()=>show('menuScreen'));
 on('msgOkBtn',()=>show('menuScreen'));
-on('launcherBtn',()=>{location.href='https://majidovmuhammad23774.github.io/Frontier-site/launcher.html';});
+on('launcherBtn',()=>{location.href='https://grombroni.netlify.app/launcher.html';});
 on('profileBtn',()=>{
 const a=document.getElementById('profName');if(a)a.textContent=save.nick;
 const b=document.getElementById('profCoins');if(b)b.textContent=save.coins.toLocaleString();
@@ -158,7 +160,7 @@ resize();window.addEventListener('resize',resize);
 
 let running=false,score=0,lives=3,wave=1,kills=0,waveEnding=false,waveSpawning=false;
 let bullets=[],enemyBullets=[],enemies=[],particles=[],companions=[],stars=[];
-const player={x:0,y:0,w:50,h:50};
+const player={x:540,y:1700,w:50,h:50};
 let joyX=0,joyY=0,firePressed=false,shootCd=0,time=0;
 
 for(let i=0;i<100;i++)stars.push({x:Math.random()*1080,y:Math.random()*1920,s:Math.random()*2+0.8,sp:Math.random()*1.5+0.3,color:Math.random()<0.3?'#7fc8ff':'#fff'});
@@ -175,8 +177,8 @@ function playSound(f,t,d,v){try{if(!audioCtx)audioCtx=new(window.AudioContext||w
 
 function addExplosion(x,y,color){for(let i=0;i<8;i++)particles.push({x,y,vx:(Math.random()-0.5)*8,vy:(Math.random()-0.5)*8,life:1,color});}
 
-function spawnEnemy(){const s=Math.random()*20+30;const hp=Math.ceil(wave/2)+2;enemies.push({x:Math.random()*(1080-s*2)+s,y:-s,size:s,hp:hp,maxHp:hp,speed:Math.random()*1.2+0.6+wave*0.1,shootCd:Math.random()*100+80,rot:0});}
-function startWave(){const c=3+wave*2;waveSpawning=true;for(let i=0;i<c;i++)setTimeout(()=>{if(running)spawnEnemy();},i*400);setTimeout(()=>{waveSpawning=false;},c*400+300);}
+function spawnEnemy(){const s=Math.random()*20+30;const hp=Math.ceil(wave/2)+2;enemies.push({x:Math.random()*(1080-s*2)+s,y:-s,size:s,hp:hp,maxHp:hp,speed:0.6+wave*0.05,shootCd:200+Math.random()*100,rot:0});}
+function startWave(){const c=3+wave;waveSpawning=true;for(let i=0;i<c;i++)setTimeout(()=>{if(running)spawnEnemy();},i*600);setTimeout(()=>{waveSpawning=false;},c*600+300);}
 
 function startGame(){
 running=true;score=0;lives=3;wave=1;kills=0;waveEnding=false;waveSpawning=false;
@@ -196,18 +198,24 @@ function gameOver(){running=false;const h=document.getElementById('hud');if(h)h.
 
 function update(){
 if(!running)return;time++;
+const speedBonus=1+(save.upgrades.speed||0)/100;
 const dmgBonus=save.upgrades.dmg||0;
-player.x+=joyX*10;if(player.x<30)player.x=30;if(player.x>1050)player.x=1050;
+player.x+=joyX*8*speedBonus;
+player.y+=joyY*8*speedBonus;
+if(player.x<30)player.x=30;
+if(player.x>1050)player.x=1050;
+if(player.y<400)player.y=400;
+if(player.y>1850)player.y=1850;
 shootCd--;
-if(firePressed&&shootCd<=0){bullets.push({x:player.x,y:player.y-30,w:5,h:16,vy:-14,dmg:15+dmgBonus});shootCd=15;playSound(600,'triangle',0.05,0.04);}
+if(firePressed&&shootCd<=0){bullets.push({x:player.x,y:player.y-30,w:5,h:16,vy:-14,dmg:20+dmgBonus});shootCd=12;playSound(600,'triangle',0.05,0.04);}
 
 companions.forEach(c=>{c.x+=c.dir*2;if(c.x<50||c.x>1030)c.dir*=-1;c.shootCd--;if(c.shootCd<=0){let cl=null,mn=99999;enemies.forEach(e=>{const d=Math.hypot(e.x-c.x,e.y-c.y);if(d<mn){mn=d;cl=e;}});if(cl){c.shootCd=c.type.fireRate;const dx=cl.x-c.x,dy=cl.y-c.y;const len=Math.hypot(dx,dy)||1;bullets.push({x:c.x,y:c.y-15,w:4,h:12,vx:dx/len*10,vy:dy/len*10,dmg:c.type.dmg,color:c.type.color});}}});
 
-for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.x+=(b.vx||0);b.y+=(b.vy||-14);if(b.y<-50||b.x<-50||b.x>1130)bullets.splice(i,1);}
+for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.x+=(b.vx||0);b.y+=(b.vy||-14);if(b.y<-50||b.x<-50||b.x>1130||b.y>1970)bullets.splice(i,1);}
 for(let i=enemyBullets.length-1;i>=0;i--){const b=enemyBullets[i];b.x+=b.vx;b.y+=b.vy;if(b.y>1970||b.y<-50||b.x<-50||b.x>1130){enemyBullets.splice(i,1);continue;}if(Math.hypot(b.x-player.x,b.y-player.y)<25){enemyBullets.splice(i,1);lives--;const l=document.getElementById('lives');if(l)l.textContent=lives;addExplosion(player.x,player.y,'#ff4444');if(lives<=0){gameOver();return;}}}
 
 for(let i=enemies.length-1;i>=0;i--){const e=enemies[i];e.y+=e.speed;e.rot+=0.03;e.shootCd--;
-if(e.shootCd<=0&&e.y>50){e.shootCd=100+Math.random()*60;const dx=player.x-e.x,dy=player.y-e.y;const len=Math.hypot(dx,dy)||1;enemyBullets.push({x:e.x,y:e.y,vx:dx/len*5,vy:dy/len*5,w:7,h:7});}
+if(e.shootCd<=0&&e.y>50&&e.y<1400){e.shootCd=250+Math.random()*100;const dx=player.x-e.x,dy=player.y-e.y;const len=Math.hypot(dx,dy)||1;enemyBullets.push({x:e.x,y:e.y,vx:dx/len*3,vy:dy/len*3,w:6,h:6});}
 if(Math.hypot(e.x-player.x,e.y-player.y)<e.size/2+25){enemies.splice(i,1);lives--;const l=document.getElementById('lives');if(l)l.textContent=lives;addExplosion(player.x,player.y,'#ff4444');if(lives<=0){gameOver();return;}continue;}
 if(e.y>1970){enemies.splice(i,1);continue;}
 for(let j=bullets.length-1;j>=0;j--){const b=bullets[j];if(Math.hypot(b.x-e.x,b.y-e.y)<e.size/2+8){e.hp-=b.dmg;bullets.splice(j,1);if(e.hp<=0){enemies.splice(i,1);kills++;score+=10;const s=document.getElementById('score');if(s)s.textContent=score;save.kills=(save.kills||0)+1;save.coins+=30;writeSave();addExplosion(e.x,e.y,'#44ff44');playSound(200,'sawtooth',0.2,0.1);}break;}}}
